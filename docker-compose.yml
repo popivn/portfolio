@@ -1,0 +1,32 @@
+version: '3'
+
+services:
+  backend:
+    build:
+      context: ./portfolio-backend
+    container_name: laravel-backend
+    ports:
+      - "8000:80"
+    volumes:
+      - ./portfolio-backend:/var/www/html
+    networks:
+      - app-network
+
+  frontend:
+    build:
+      context: ./portfolio-fontend
+    container_name: vue-frontend
+    ports:
+      - "5173:5173" 
+    volumes:
+      - ./portfolio-fontend:/app 
+      - /app/node_modules 
+    command: npm run dev 
+    environment:
+      - CHOKIDAR_USEPOLLING=true 
+    networks:
+      - app-network
+
+networks:
+  app-network:
+    driver: bridge
