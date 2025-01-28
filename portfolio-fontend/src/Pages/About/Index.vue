@@ -10,17 +10,17 @@
                 class="w-32 h-32 rounded-full border-4 border-primary shadow-lg object-cover transition-transform duration-300 ease-in-out hover:scale-110 hover:shadow-[0_0_15px_4px_rgba(0,255,255,0.6)] hover:border-secondary" />
         </div>
 
-        <div class="relative rounded-lg shadow-lg p-0 sm:p-6 w-full backdrop-blur-sm bg-gradient-secondary mt-10 z-10">
+        <div class="relative rounded-lg shadow-lg p-2 pt-4 sm:p-4 w-full backdrop-blur-sm bg-gradient-secondary mt-10 z-10">
             <div
-                class="absolute -top-4 left-4 bg-gradient-secondary px-4 text-primary font-bold text-lg shadow-md border border-primary rounded-lg">
+                class="absolute -top-4 left-4 bg-gradient-secondary px-4 text-primary font-bold text-lg shadow-md border border-primary rounded-lg ">
                 About Me
             </div>
             <div v-if="loading" class="text-center">
                 <p class="text-secondary">Loading...</p>
             </div>
-            <div v-else-if="userDetails" class="flex flex-col sm:flex-row sm:items-start sm:gap-4">
+            <div v-else-if="userDetails" class="flex flex-col sm:flex-row sm:items-start sm:gap-4 ">
                 <div class="flex-1">
-                    <p class="text-secondary text-justify p-3 pt-4" v-html="formattedDescription"></p>
+                    <p class="text-secondary text-justify" v-html="formattedDescription"></p>
                 </div>
                 <div class="flex-none mt-2 relative sparkle-container">
                     <img :src="theChariotImage" alt="The Chariot"
