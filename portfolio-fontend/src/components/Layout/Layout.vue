@@ -1,5 +1,5 @@
 <template>
-    <div class="container mx-auto px-4 sm:px-6 lg:px-8 flex min-h-screen bg-gradient-primary relative">
+    <div class="container mx-auto px-2 sm:px-6 lg:px-8 flex min-h-screen bg-gradient-primary relative">
         <button @click="isAsideOpen = !isAsideOpen" :class="[
             'fixed top-4 z-50 bg-primary p-2 rounded-full shadow-lg transition-transform duration-300 lg:hidden',
             isAsideOpen ? 'translate-x-64' : 'translate-x-0'
@@ -34,7 +34,7 @@
             <div class="min-h-[40vh]"></div>
         </aside>
 
-        <main class="flex-1 p-6 overflow-y-auto">
+        <main class="flex-1 overflow-y-auto p-0 sm:p-6">
             <slot :active-tab="activeTab"></slot>
         </main>
     </div>
