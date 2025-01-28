@@ -16,7 +16,7 @@
 
         <aside :class="[
             isAsideOpen ? 'translate-x-0' : '-translate-x-full',
-            'p-4 w-64 fixed inset-y-0 left-0 shadow-xl transform transition-transform duration-300 z-40 lg:translate-x-0 lg:relative lg:w-1/4'
+            'p-4 w-64 fixed inset-y-0 left-0 shadow-xl transform transition-transform duration-300 z-40 lg:translate-x-0 lg:relative lg:w-1/4 backdrop-blur-sm'
         ]">
             <ProfileSection />
 

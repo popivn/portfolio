@@ -1,55 +1,8 @@
 <template>
-    <div class="min-h-screen w-full">
-        <!-- Main container -->
+    <div class="w-full">
         <div class="container mx-auto">
-            <!-- Three.js canvas container -->
             <div class="w-full max-w-[400px] mx-auto pt-8">
                 <div ref="threeCanvas" class="w-full aspect-square"></div>
-            </div>
-
-            <!-- Profile content -->
-            <div class="px-4 pb-8 w-full">
-                <div class="rounded-lg shadow-lg p-6 max-w-md w-full mx-auto backdrop-blur-sm">
-                    <h2 class="text-2xl font-bold text-primary mb-4">About Me</h2>
-
-                    <div v-if="loading" class="text-center">
-                        <p class="text-secondary">Loading...</p>
-                    </div>
-
-                    <div v-else-if="userDetails" class="space-y-2">
-                        <p class="flex flex-col sm:flex-row sm:gap-2">
-                            <strong class="text-primary min-w-[100px]">Nickname:</strong>
-                            <span class="text-secondary">{{ userDetails.nickname }}</span>
-                        </p>
-                        <p class="flex flex-col sm:flex-row sm:gap-2">
-                            <strong class="text-primary min-w-[100px]">Birthday:</strong>
-                            <span class="text-secondary">{{ userDetails.birthday }}</span>
-                        </p>
-                        <p class="flex flex-col sm:flex-row sm:gap-2">
-                            <strong class="text-primary min-w-[100px]">School:</strong>
-                            <span class="text-secondary">{{ userDetails.school }}</span>
-                        </p>
-                        <p class="flex flex-col sm:flex-row sm:gap-2">
-                            <strong class="text-primary min-w-[100px]">Status:</strong>
-                            <span class="text-secondary">{{ userDetails.status }}</span>
-                        </p>
-                        <p class="flex flex-col sm:flex-row sm:gap-2">
-                            <strong class="text-primary min-w-[100px]">Description:</strong>
-                            <span class="text-secondary">{{ userDetails.description }}</span>
-                        </p>
-                        <p class="flex flex-col sm:flex-row sm:gap-2">
-                            <strong class="text-primary min-w-[100px]">Portfolio:</strong>
-                            <a :href="userDetails.portfolio_link" target="_blank" rel="noopener noreferrer"
-                                class="text-secondary underline hover:text-primary transition-colors">
-                                {{ userDetails.portfolio_link }}
-                            </a>
-                        </p>
-                    </div>
-
-                    <div v-else>
-                        <p class="text-secondary">No user details found.</p>
-                    </div>
-                </div>
             </div>
         </div>
     </div>
@@ -58,11 +11,8 @@
 <script setup>
 import { onMounted, ref, onUnmounted } from "vue";
 import * as THREE from "three";
-import axios from "axios";
 
 const threeCanvas = ref(null);
-const userDetails = ref(null);
-const loading = ref(true);
 
 let scene, camera, renderer, sphere;
 
@@ -125,25 +75,9 @@ const handleResize = () => {
     setResponsiveSize();
 };
 
-const fetchUserDetails = async () => {
-    try {
-        const response = await axios.get("https://portfolio-nro7.onrender.com/api/user-detail");
-        if (response.data?.data) {
-            userDetails.value = response.data.data;
-        } else {
-            console.error("Invalid response format:", response.data);
-        }
-    } catch (error) {
-        console.error("Error fetching user details:", error);
-    } finally {
-        loading.value = false;
-    }
-};
-
 onMounted(() => {
     initThree();
     window.addEventListener("resize", handleResize);
-    fetchUserDetails();
 });
 
 onUnmounted(() => {
