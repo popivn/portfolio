@@ -3,14 +3,28 @@
         <Shape />
     </div>
     <div class="pb-8 w-full relative z-0">
-        <div class="avatar-container absolute -top-[130px] left-1/2 -translate-x-1/2 transition-transform duration-300 ease-in-out"
-            :style="{ transform: `translateY(${avatarOffset}px) translateX(-50%)` }">
-            <img :src="isValidImage(userDetails?.profile_image) ? userDetails.profile_image : defaultImage"
-                alt="Profile Image"
-                class="w-32 h-32 rounded-full border-4 border-primary shadow-lg object-cover transition-transform duration-300 ease-in-out hover:scale-110 hover:shadow-[0_0_15px_4px_rgba(0,255,255,0.6)] hover:border-secondary" />
+        <div>
+            <div class="avatar-container absolute -top-[130px] left-1/2 -translate-x-1/2 transition-transform duration-300 ease-in-out"
+                :style="{ transform: `translateY(${avatarOffset}px) translateX(-50%)` }" @click="showPopup = true">
+                <img :src="isValidImage(userDetails?.profile_image) ? userDetails.profile_image : defaultImage"
+                    alt="Profile Image"
+                    class="w-32 h-32 rounded-full border-4 border-primary shadow-lg object-cover transition-transform duration-300 ease-in-out hover:scale-110 hover:shadow-[0_0_15px_4px_rgba(0,255,255,0.6)] hover:border-secondary" />
+            </div>
+
+            <div v-if="showPopup"
+                class="fixed top-0 left-0 w-full h-full flex items-center justify-center bg-black/50 z-50">
+                <div class="bg-white p-6 rounded-lg shadow-lg text-center relative" @click.stop>
+                    <h1 class="text-2xl font-bold text-primary mb-4 animate-bounce">🎉 Happy New Year! 🎉</h1>
+                    <button @click="showPopup = false"
+                        class="absolute top-2 right-2 bg-red-500 text-white p-2 rounded-full hover:bg-red-700">
+                        ✖
+                    </button>
+                </div>
+            </div>
         </div>
 
-        <div class="relative rounded-lg shadow-lg p-2 pt-4 sm:p-4 w-full backdrop-blur-sm bg-gradient-secondary mt-10 z-10">
+        <div
+            class="relative rounded-lg shadow-lg p-2 pt-4 sm:p-4 w-full backdrop-blur-sm bg-gradient-secondary mt-10 z-10">
             <div
                 class="absolute -top-4 left-4 bg-gradient-secondary px-4 text-primary font-bold text-lg shadow-md border border-primary rounded-lg ">
                 About Me
@@ -105,6 +119,7 @@ import theChariotImage from "@/assets/images/the_chariot.png";
 const defaultImage = theChariotImage;
 
 const avatarOffset = ref(0);
+const showPopup = ref(false);
 
 const isValidImage = (url) => {
     if (!url || typeof url !== "string") return false;
@@ -141,6 +156,24 @@ onUnmounted(() => {
     window.removeEventListener("scroll", handleScroll);
 });
 </script>
+<style>
+/* Hiệu ứng mở popup */
+.animate-bounce {
+    animation: bounce 1.5s infinite;
+}
+
+@keyframes bounce {
+
+    0%,
+    100% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(-10px);
+    }
+}
+</style>
 
 <style scoped>
 /* Giữ nguyên các styles khác */
