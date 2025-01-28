@@ -1,7 +1,7 @@
 <template>
     <div class="w-full">
         <div class="container mx-auto">
-            <div class="w-full max-w-[400px] mx-auto pt-8">
+            <div class="w-full max-w-[400px] max-h-[256px] mx-auto pt-8">
                 <div ref="threeCanvas" class="w-full aspect-square"></div>
             </div>
         </div>

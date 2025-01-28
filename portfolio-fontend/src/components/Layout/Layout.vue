@@ -1,5 +1,5 @@
 <template>
-    <div class="container mx-auto px-4 sm:px-6 lg:px-8 flex min-h-screen bg-gradient-primary">
+    <div class="container mx-auto px-4 sm:px-6 lg:px-8 flex min-h-screen bg-gradient-primary relative">
         <button @click="isAsideOpen = !isAsideOpen" :class="[
             'fixed top-4 z-50 bg-primary p-2 rounded-full shadow-lg transition-transform duration-300 lg:hidden',
             isAsideOpen ? 'translate-x-64' : 'translate-x-0'
@@ -16,7 +16,7 @@
 
         <aside :class="[
             isAsideOpen ? 'translate-x-0' : '-translate-x-full',
-            'p-4 w-64 fixed inset-y-0 left-0 shadow-xl transform transition-transform duration-300 z-40 lg:translate-x-0 lg:relative lg:w-1/4 backdrop-blur-sm'
+            'fixed top-0 left-0 p-4 w-64 h-screen overflow-y-auto shadow-xl transform transition-transform duration-300 z-50 lg:translate-x-0 lg:sticky lg:top-0 lg:w-1/4 backdrop-blur-sm'
         ]">
             <ProfileSection />
 
@@ -25,29 +25,28 @@
                     'py-3 px-4 rounded-lg font-medium transition duration-200 ease-in-out mt-2',
                     activeTab === tab
                         ? 'text-primary bg-gradient-secondary shadow-lg transform scale-105 text-left'
-                        : 'text-secondary hover:border-b-2y hover:bg-gradient-hover hover:shadow-lg hover:transform hover:scale-105 text-right'
+                        : 'text-secondary hover:bg-gradient-hover hover:shadow-lg hover:transform hover:scale-105 text-right'
                 ]">
                     {{ tab }}
                 </button>
             </nav>
 
-            <div class="min-h-[40vh]">
-            </div>
+            <div class="min-h-[40vh]"></div>
         </aside>
 
-        <main class="flex-1 p-6">
+        <main class="flex-1 p-6 overflow-y-auto">
             <slot :active-tab="activeTab"></slot>
         </main>
     </div>
 </template>
 
 <script setup>
-import { ref } from 'vue';
+import { ref } from "vue";
 import ProfileSection from "@/components/ProfileSection.vue";
 
 const isAsideOpen = ref(false);
-const tabs = ['Experience', 'Projects', 'About', 'Posts'];
-const activeTab = ref('About');
+const tabs = ["Experience", "Projects", "About", "Posts"];
+const activeTab = ref("About");
 
 function toggleTab(tab) {
     activeTab.value = tab;
