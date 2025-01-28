@@ -20,7 +20,7 @@
             </div>
             <div v-else-if="userDetails" class="flex flex-col sm:flex-row sm:items-start sm:gap-4">
                 <div class="flex-1">
-                    <p class="text-secondary text-justify" v-html="formattedDescription"></p>
+                    <p class="text-secondary text-justify p-3 pt-4" v-html="formattedDescription"></p>
                 </div>
                 <div class="flex-none mt-2 relative sparkle-container">
                     <img :src="theChariotImage" alt="The Chariot"
