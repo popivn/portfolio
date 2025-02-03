@@ -22,15 +22,12 @@ onMounted(async () => {
   <div>
     <h1>Danh sách dự án</h1>
 
-    <!-- Hiển thị trạng thái tải dữ liệu -->
     <div v-if="loading">Đang tải...</div>
 
-    <!-- Hiển thị lỗi nếu có -->
     <div v-if="error" class="error">
       <p>Có lỗi xảy ra khi tải dữ liệu: {{ error }}</p>
     </div>
 
-    <!-- Hiển thị dữ liệu nếu có -->
     <ul v-if="projects.length > 0">
       <li v-for="project in projects" :key="project.id" class="project-item">
         <h3>{{ project.name }}</h3>

@@ -27,7 +27,6 @@ const initThree = () => {
     setResponsiveSize();
     threeCanvas.value?.appendChild(renderer.domElement);
 
-    // Lighting
     const ambientLight = new THREE.AmbientLight(0xffffff, 0.5);
     scene.add(ambientLight);
 
@@ -35,7 +34,6 @@ const initThree = () => {
     directionalLight.position.set(5, 5, 5);
     scene.add(directionalLight);
 
-    // Create sphere
     const geometry = new THREE.SphereGeometry(1, 32, 32);
     const material = new THREE.MeshStandardMaterial({
         color: 0x759abe,
@@ -44,10 +42,8 @@ const initThree = () => {
     sphere = new THREE.Mesh(geometry, material);
     scene.add(sphere);
 
-    // Set camera position
     camera.position.z = 3;
 
-    // Start animation
     animate();
 };
 

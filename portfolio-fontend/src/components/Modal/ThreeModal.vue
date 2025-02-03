@@ -29,14 +29,11 @@
   const initScene = () => {
     const container = threeContainer.value;
   
-    // Initialize Camera
     camera = new THREE.PerspectiveCamera(50, window.innerWidth / window.innerHeight, 0.1, 100);
     camera.position.set(-4, 2, 4);
   
-    // Initialize Scene
     scene = new THREE.Scene();
   
-    // Light Sources
     const bulbGeometry = new THREE.SphereGeometry(0.02, 16, 8);
     bulbLight = new THREE.PointLight(0xffee88, 1, 100, 2);
     bulbMat = new THREE.MeshStandardMaterial({
@@ -52,7 +49,6 @@
     hemiLight = new THREE.HemisphereLight(0xddeeff, 0x0f0e0d, 0.02);
     scene.add(hemiLight);
   
-    // Floor Material
     floorMat = new THREE.MeshStandardMaterial({ roughness: 0.8, color: 0xffffff, metalness: 0.2 });
     const floorGeometry = new THREE.PlaneGeometry(20, 20);
     const floorMesh = new THREE.Mesh(floorGeometry, floorMat);
@@ -60,7 +56,6 @@
     floorMesh.rotation.x = -Math.PI / 2.0;
     scene.add(floorMesh);
   
-    // Ball Material
     ballMat = new THREE.MeshStandardMaterial({ color: 0xffffff, roughness: 0.5, metalness: 1.0 });
     const ballGeometry = new THREE.SphereGeometry(0.25, 32, 32);
     const ballMesh = new THREE.Mesh(ballGeometry, ballMat);
@@ -68,7 +63,6 @@
     ballMesh.castShadow = true;
     scene.add(ballMesh);
   
-    // Cube Material
     cubeMat = new THREE.MeshStandardMaterial({ roughness: 0.7, color: 0xffffff, metalness: 0.2 });
     const boxGeometry = new THREE.BoxGeometry(0.5, 0.5, 0.5);
     const boxMesh = new THREE.Mesh(boxGeometry, cubeMat);
@@ -76,22 +70,18 @@
     boxMesh.castShadow = true;
     scene.add(boxMesh);
   
-    // Renderer
     renderer = new THREE.WebGLRenderer();
     renderer.setPixelRatio(window.devicePixelRatio);
     renderer.setSize(window.innerWidth, window.innerHeight);
     renderer.shadowMap.enabled = true;
     renderer.toneMapping = THREE.ReinhardToneMapping;
   
-    // Append Renderer
     container.appendChild(renderer.domElement);
   
-    // Controls
     const controls = new OrbitControls(camera, renderer.domElement);
     controls.minDistance = 1;
     controls.maxDistance = 20;
   
-    // Window Resize
     const onWindowResize = () => {
       camera.aspect = window.innerWidth / window.innerHeight;
       camera.updateProjectionMatrix();

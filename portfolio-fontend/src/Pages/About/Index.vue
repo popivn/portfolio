@@ -24,7 +24,7 @@
         </div>
 
         <div
-            class="relative rounded-lg shadow-lg p-2 pt-4 sm:p-4 w-full backdrop-blur-sm bg-gradient-secondary mt-10 z-10">
+            class="relative rounded-lg shadow-lg p-2 pt-4 sm:p-4 w-full backdrop-blur-sm bg-gradient-secondary mt-10 z-10 hover:border hover:border-primary">
             <div
                 class="absolute -top-4 left-4 bg-gradient-secondary px-4 text-primary font-bold text-lg shadow-md border border-primary rounded-lg ">
                 About Me
@@ -42,21 +42,26 @@
                     <div class="sparkles"></div>
                 </div>
             </div>
-            <div v-else>
-                <p class="text-secondary">No user details found.</p>
+            <div v-else class="flex flex-col sm:flex-row sm:items-start sm:gap-4 ">
+                <div class="flex-1">
+                    <p class="text-secondary text-justify" v-html="formattedDescription"></p>
+                </div>
+                <div class="flex-none mt-2 relative sparkle-container">
+                    <img :src="theChariotImage" alt="The Chariot"
+                        class="w-32 h-full rounded-lg shadow-lg object-cover hover:animate-spin-y" />
+                    <div class="sparkles"></div>
+                </div>
             </div>
         </div>
 
-        <!-- Contact section với Font Awesome icons -->
         <div class="relative flex items-center gap-4 mt-4 ">
             <GradientButton @click="toggleSocialIcons" :class="[
-                'transition-transform duration-300 ease-in-out',
+                'transition-transform duration-300 ease-in-out hover:border hover:border-primary',
                 isIconsVisible ? 'translate-x-[120%]' : 'translate-x-0'
             ]">
                 Contact Me
             </GradientButton>
 
-            <!-- Social Icons -->
             <div class="absolute top-0 left-0 flex items-center gap-4 mt-4 bg-gradient-secondary rounded-full p-2 pt-"
                 :class="[
                     'transition-all duration-300 ease-in-out',
@@ -64,25 +69,21 @@
                         ? 'opacity-100 translate-x-0'
                         : 'opacity-0 -translate-x-0 pointer-events-none'
                 ]">
-                <!-- GitHub -->
                 <a href="#"
                     class="text-primary hover:text-secondary transition-colors duration-200 transform hover:scale-110">
                     <font-awesome-icon :icon="['fab', 'github']" class="w-5 h-5" />
                 </a>
 
-                <!-- LinkedIn -->
                 <a href="#"
                     class="text-primary hover:text-secondary transition-colors duration-200 transform hover:scale-110">
                     <font-awesome-icon :icon="['fab', 'linkedin']" class="w-5 h-5" />
                 </a>
 
-                <!-- Facebook -->
                 <a href="#"
                     class="text-primary hover:text-secondary transition-colors duration-200 transform hover:scale-110">
                     <font-awesome-icon :icon="['fab', 'facebook']" class="w-5 h-5" />
                 </a>
 
-                <!-- Phone -->
                 <a href="#"
                     class="text-primary hover:text-secondary transition-colors duration-200 transform hover:scale-110">
                     <font-awesome-icon :icon="['fas', 'phone']" class="w-5 h-5" />
@@ -107,7 +108,7 @@ const isIconsVisible = ref(false);
 const formattedDescription = computed(() => {
     return userDetails.value?.description
         ? userDetails.value.description.replace(/\r\n\r\n/g, "<br><br>")
-        : "";
+        : "Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage, and going through the cites of the word in classical literature, discovered the undoubtable source. Lorem Ipsum comes from sections 1.10.32 and 1.10.33 of 'de Finibus Bonorum et Malorum' (The Extremes of Good and Evil) by Cicero, written in 45 BC. This book is a treatise on the theory of ethics, very popular during the Renaissance. The first line of Lorem Ipsum, 'Lorem ipsum dolor sit amet..', comes from a line in section 1.10.32.";
 });
 
 const toggleSocialIcons = () => {
@@ -157,7 +158,6 @@ onUnmounted(() => {
 });
 </script>
 <style>
-/* Hiệu ứng mở popup */
 .animate-bounce {
     animation: bounce 1.5s infinite;
 }
@@ -176,7 +176,6 @@ onUnmounted(() => {
 </style>
 
 <style scoped>
-/* Giữ nguyên các styles khác */
 @keyframes spinY {
     from {
         transform: rotateY(0deg);
