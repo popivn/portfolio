@@ -19,6 +19,10 @@ import router from './router'
 
 const app = createApp(App)
 
+if (process.env.NODE_ENV === 'production') {
+  app.config.devtools = false;
+}
+
 library.add(faGithub, faLinkedin, faFacebook, faArrowRight, faPen, faPhone, faEnvelope)
 
 app.component('font-awesome-icon', FontAwesomeIcon)
