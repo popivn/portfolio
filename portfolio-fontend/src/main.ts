@@ -10,7 +10,8 @@ import {
 import {
   faArrowRight,
   faPen,
-  faPhone, 
+  faPhone,
+  faEnvelope, 
 } from '@fortawesome/free-solid-svg-icons' 
 import './assets/tailwind.css'
 import App from './App.vue'
@@ -18,8 +19,7 @@ import router from './router'
 
 const app = createApp(App)
 
-// Thêm các icon vào thư viện
-library.add(faGithub, faLinkedin, faFacebook, faArrowRight, faPen, faPhone)
+library.add(faGithub, faLinkedin, faFacebook, faArrowRight, faPen, faPhone, faEnvelope)
 
 app.component('font-awesome-icon', FontAwesomeIcon)
 
