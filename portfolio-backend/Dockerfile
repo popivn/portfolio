@@ -26,4 +26,5 @@ RUN composer install --optimize-autoloader --no-dev \
 
 EXPOSE 80
 
-CMD service nginx start && php-fpm
+CMD ["sh", "-c", "nginx -g 'daemon off;' && exec php-fpm"]
+
