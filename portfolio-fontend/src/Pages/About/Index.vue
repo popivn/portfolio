@@ -84,11 +84,14 @@ const socialIcons = [
     }
 ];
 
+// import { computed } from 'vue';
+
 const formattedDescription = computed(() => {
-    return userDetails.value?.description
-        ? userDetails.value.description.replace(/\r\n\r\n/g, "<br><br>")
-        : "Contrary to popular belief, Lorem Ipsum is not simply random text...";
+  return userDetails.value?.description
+    ? userDetails.value.description.replace(/\r\n\r\n/g, "<br><br>")
+    : "Hi, my name is To Trung Hieu, also known as PoPi, a dedicated web developer with a focus on PHP and Laravel. I am currently pursuing a degree in Software Engineering at BTEC FPT British College, Cần Thơ, expected to graduate in April 2025. With experience from internships at PhuQuocDevs and various real-world projects, I have honed my skills in both front-end and back-end development, including frameworks like Vue.js, ReactJS, and ASP.NET. Additionally, I am actively learning about online security to broaden my expertise. My career objective is to become a Full-Stack Developer within the next 12 months, leveraging strong problem-solving and teamwork skills. Long-term, I aspire to take on leadership roles like Tech Lead or Solution Architect, contributing to innovative product strategies and driving sustainable growth.";
 });
+
 
 const toggleSocialIcons = () => {
     isIconsVisible.value = !isIconsVisible.value;
