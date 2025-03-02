@@ -1,5 +1,4 @@
 <template>
-  <h1>About me</h1>
   <PostTimeline :posts="posts" />
 </template>
 
