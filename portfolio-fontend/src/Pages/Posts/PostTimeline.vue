@@ -1,11 +1,9 @@
 <template>
   <div class="timeline space-y-6 relative">
-    <!-- Vertical line - hidden on mobile, visible from sm breakpoint -->
     <div class="hidden sm:block absolute left-[28%] sm:left-1/4 transform -translate-x-1/2 top-0 h-full w-[2px] bg-primary"></div>
 
     <div v-show="showTimeline">
       <div v-for="(post, index) in posts" :key="index" class="event relative">
-        <!-- Mobile layout (stacked) -->
         <div class="block sm:hidden space-y-3">
           <div class="timestamp font-bold text-primary text-center mb-2">
             <span v-if="post.time.includes('to')">
@@ -27,7 +25,6 @@
           </div>
         </div>
 
-        <!-- Tablet and desktop layout (horizontal) -->
         <div class="hidden sm:flex items-start gap-6 relative">
           <div class="timestamp text-right font-bold text-primary break-words">
             <span v-if="post.time.includes('to')">
@@ -40,7 +37,6 @@
             </span>
           </div>
           
-          <!-- Timeline dot -->
           <div class="w-4 h-4 bg-secondary rounded-full absolute left-[28%] sm:left-1/4 transform -translate-x-1/2"></div>
 
           <div class="ml-2 sm:ml-[14%] project flex-1 p-6 pt-0 rounded-lg shadow-md hover:shadow-xl transition-shadow duration-300">

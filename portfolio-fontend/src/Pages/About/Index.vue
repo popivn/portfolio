@@ -6,7 +6,7 @@
     <div class="pb-8 w-full relative z-0">
         <div class="avatar-container absolute -top-[130px] left-1/2 -translate-x-1/2 transition-transform duration-300 ease-in-out"
             :style="{ transform: `translateY(${avatarOffset}px) translateX(-50%)` }" @click="showPopup = true">
-            <img :src="isValidImage(userDetails?.profile_image) ? userDetails.profile_image : defaultImage"
+            <img :src="isValidImage(userProfile.image) ? userProfile.image : userProfile.image"
                 alt="Profile Image"
                 class="w-32 h-32 rounded-full border-4 border-primary shadow-lg object-cover transition-transform duration-300 ease-in-out hover:scale-110 hover:shadow-[0_0_15px_4px_rgba(0,255,255,0.6)] hover:border-secondary" />
         </div>
@@ -28,94 +28,69 @@
                 class="absolute -top-4 left-4 bg-gradient-secondary px-4 text-primary font-bold text-lg shadow-md border border-primary rounded-lg">
                 About Me
             </div>
-
-            <div v-if="loading" class="text-center text-secondary">Loading...</div>
-            <div v-else class="flex flex-col sm:flex-row sm:gap-4">
-                <p class="flex-1 text-secondary text-justify" v-html="formattedDescription"></p>
-                <div class="flex-none mt-2 relative sparkle-container">
-                    <img :src="theChariotImage" alt="The Chariot"
-                        class="w-32 rounded-lg shadow-lg object-cover hover:animate-spin-y" />
-                    <div class="sparkles"></div>
-                </div>
+            <div class="flex flex-col sm:flex-row sm:gap-4">
+                <p class="flex-1 text-secondary text-justify" v-html="userProfile.description"></p>
             </div>
         </div>
 
         <div class="relative flex items-center gap-4 mt-4">
             <GradientButton @click="toggleSocialIcons"
-                class="transition-transform duration-300 ease-in-out hover:border hover:border-primary"
-                :class="isIconsVisible ? 'translate-x-[120%]' : 'translate-x-0'">
+                class="transition-transform duration-300 ease-in-out hover:border hover:border-primary">
                 Contact Me
             </GradientButton>
-
-            <div class="absolute top-0 left-0 flex items-center gap-4 mt-4 bg-gradient-secondary rounded-full p-2 transition-all duration-300 ease-in-out"
-                :class="isIconsVisible ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-0 pointer-events-none'">
-                <a v-for="icon in socialIcons" :key="icon.name" :href="icon.link"
-                    class="text-primary hover:text-secondary transition-colors duration-200 transform hover:scale-110">
-                    <font-awesome-icon :icon="icon.icon" class="w-5 h-5" />
-                </a>
-            </div>
         </div>
     </div>
-
     <div class="min-h-[20vh]"></div>
 </template>
 
 <script setup>
-import { ref, onMounted, computed, onUnmounted } from "vue";
+import { ref, computed, reactive, onMounted, onUnmounted } from "vue";
 import Shape from "@/components/Modal/Shape.vue";
 import GradientButton from "@/components/Button/GradientButton.vue";
-import axios from "axios";
-import theChariotImage from "@/assets/images/the_chariot.png";
 
-const userDetails = ref(null);
-const loading = ref(true);
+const userProfiles = reactive([
+    {
+        name: "To Trung Hieu",
+        nickname: "PoPi",
+        image: 'src/assets/images/meow.jpg',
+        email: "hieutt.fw@gmail.com",
+        socialLinks: [
+            { name: "Github", icon: ["fab", "github"], link: "https://github.com/lenhatquangg" },
+            { name: "LinkedIn", icon: ["fab", "linkedin"], link: "https://www.linkedin.com/in/hi%E1%BA%BFu-t%C3%B4-trung-89b347335/" },
+            { name: "Email", icon: ["fas", "envelope"], link: "https://mail.google.com/mail/u/0/#inbox?compose=new&to=hieutt.fw@gmail.com" }
+        ],
+        description:
+            "Hi, my name is To Trung Hieu, also known as PoPi, a dedicated web developer with a focus on PHP and Laravel. " +
+            "I am currently pursuing a degree in Software Engineering at BTEC FPT British College, Cần Thơ, expected to graduate in April 2025. " +
+            "With experience from internships at PhuQuocDevs and various real-world projects, I have honed my skills in both front-end and back-end development, " +
+            "including frameworks like Vue.js, ReactJS, and ASP.NET. Additionally, I am actively learning about online security to broaden my expertise. " +
+            "My career objective is to become a Full-Stack Developer within the next 12 months, leveraging strong problem-solving and teamwork skills. " +
+            "Long-term, I aspire to take on leadership roles like Tech Lead or Solution Architect, contributing to innovative product strategies and driving sustainable growth."
+    }
+]);
+
+const userProfile = userProfiles[0];
+const showPopup = ref(false);
 const isIconsVisible = ref(false);
 const avatarOffset = ref(0);
-const showPopup = ref(false);
-const defaultImage = theChariotImage;
-
-const socialIcons = [
-    { name: 'Github', icon: ['fab', 'github'], link: 'https://github.com/lenhatquangg' },
-    { name: 'LinkedIn', icon: ['fab', 'linkedin'], link: 'https://www.linkedin.com/in/hi%E1%BA%BFu-t%C3%B4-trung-89b347335/' },
-    {
-        name: 'Email',
-        icon: ['fas', 'envelope'],
-        link: 'https://mail.google.com/mail/u/0/#inbox?compose=new&to=hieutt.fw@gmail.com'
-    }
-];
-
-// import { computed } from 'vue';
 
 const formattedDescription = computed(() => {
-  return userDetails.value?.description
-    ? userDetails.value.description.replace(/\r\n\r\n/g, "<br><br>")
-    : "Hi, my name is To Trung Hieu, also known as PoPi, a dedicated web developer with a focus on PHP and Laravel. I am currently pursuing a degree in Software Engineering at BTEC FPT British College, Cần Thơ, expected to graduate in April 2025. With experience from internships at PhuQuocDevs and various real-world projects, I have honed my skills in both front-end and back-end development, including frameworks like Vue.js, ReactJS, and ASP.NET. Additionally, I am actively learning about online security to broaden my expertise. My career objective is to become a Full-Stack Developer within the next 12 months, leveraging strong problem-solving and teamwork skills. Long-term, I aspire to take on leadership roles like Tech Lead or Solution Architect, contributing to innovative product strategies and driving sustainable growth.";
+    return userProfile.description.replace(/\r\n\r\n/g, "<br><br>");
 });
 
-
-const toggleSocialIcons = () => {
+function toggleSocialIcons() {
     isIconsVisible.value = !isIconsVisible.value;
-};
+}
 
-const isValidImage = (url) => url && /\.(jpg|jpeg|png|gif|webp|svg)$/i.test(url);
+function isValidImage(imageUrl) {
+    return imageUrl && imageUrl.startsWith("http");
+}
 
 const handleScroll = () => {
     avatarOffset.value = Math.min(window.scrollY / 2, 64);
 };
 
-const fetchUserDetails = async () => {
-    try {
-        const response = await axios.get("https://portfolio-nro7.onrender.com/api/user-detail");
-        userDetails.value = response.data?.data || null;
-    } catch (error) {
-        console.error("Error fetching user details:", error);
-    } finally {
-        loading.value = false;
-    }
-};
-
 onMounted(() => {
-    fetchUserDetails();
     window.addEventListener("scroll", handleScroll);
 });
 
@@ -123,20 +98,3 @@ onUnmounted(() => {
     window.removeEventListener("scroll", handleScroll);
 });
 </script>
-
-<style scoped>
-@keyframes spinY {
-    from {
-        transform: rotateY(0deg);
-    }
-
-    to {
-        transform: rotateY(360deg);
-    }
-}
-
-.hover\:animate-spin-y:hover {
-    animation: spinY 3s linear infinite;
-    transform-style: preserve-3d;
-}
-</style>
