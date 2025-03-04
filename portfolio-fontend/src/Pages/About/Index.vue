@@ -6,12 +6,12 @@
     <div class="pb-8 w-full relative z-0">
         <div class="avatar-container absolute -top-[130px] left-1/2 -translate-x-1/2 transition-transform duration-300 ease-in-out"
             :style="{ transform: `translateY(${avatarOffset}px) translateX(-50%)` }" @click="showPopup = true">
-            <img :src="isValidImage(userProfile.image) ? userProfile.image : userProfile.image"
-                alt="Profile Image"
+            <img :src="isValidImage(userProfile.image) ? userProfile.image : userProfile.image" alt="Profile Image"
                 class="w-32 h-32 rounded-full border-4 border-primary shadow-lg object-cover transition-transform duration-300 ease-in-out hover:scale-110 hover:shadow-[0_0_15px_4px_rgba(0,255,255,0.6)] hover:border-secondary" />
         </div>
 
-        <Transition>
+        <!-- Popup Happy New Year -->
+        <Transition name="fade">
             <div v-if="showPopup" class="fixed inset-0 flex items-center justify-center bg-black/50 z-50"
                 @click="showPopup = false">
                 <div class="bg-white p-6 rounded-lg shadow-lg text-center relative" @click.stop>
@@ -32,21 +32,14 @@
                 <p class="flex-1 text-secondary text-justify" v-html="userProfile.description"></p>
             </div>
         </div>
-
-        <div class="relative flex items-center gap-4 mt-4">
-            <GradientButton @click="toggleSocialIcons"
-                class="transition-transform duration-300 ease-in-out hover:border hover:border-primary">
-                Contact Me
-            </GradientButton>
-        </div>
+        <ContactForm />
     </div>
-    <div class="min-h-[20vh]"></div>
 </template>
 
 <script setup>
 import { ref, computed, reactive, onMounted, onUnmounted } from "vue";
 import Shape from "@/components/Modal/Shape.vue";
-import GradientButton from "@/components/Button/GradientButton.vue";
+import ContactForm from './Contact_Form.vue';
 
 const userProfiles = reactive([
     {
@@ -70,17 +63,12 @@ const userProfiles = reactive([
 ]);
 
 const userProfile = userProfiles[0];
-const showPopup = ref(false);
-const isIconsVisible = ref(false);
+
 const avatarOffset = ref(0);
 
 const formattedDescription = computed(() => {
     return userProfile.description.replace(/\r\n\r\n/g, "<br><br>");
 });
-
-function toggleSocialIcons() {
-    isIconsVisible.value = !isIconsVisible.value;
-}
 
 function isValidImage(imageUrl) {
     return imageUrl && imageUrl.startsWith("http");
