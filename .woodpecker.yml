@@ -1,0 +1,45 @@
+pipeline:
+  backend_build:
+    image: php:8.2-fpm
+    commands:
+      - echo "Building the backend..."
+      - apt-get update && apt-get install -y \
+          libpng-dev libjpeg-dev libfreetype6-dev libzip-dev unzip git curl nginx gnupg2 \
+          && docker-php-ext-configure gd --with-freetype --with-jpeg \
+          && docker-php-ext-install gd zip pdo pdo_mysql opcache
+      - curl https://packages.microsoft.com/keys/microsoft.asc | apt-key add - \
+          && curl https://packages.microsoft.com/config/debian/11/prod.list > /etc/apt/sources.list.d/mssql-release.list \
+          && apt-get update \
+          && ACCEPT_EULA=Y apt-get install -y msodbcsql18 unixodbc-dev \
+          && pecl install sqlsrv pdo_sqlsrv \
+          && docker-php-ext-enable sqlsrv pdo_sqlsrv
+      - composer install --optimize-autoloader --no-dev
+      - chmod -R 775 storage bootstrap/cache
+      - chown -R www-data:www-data storage bootstrap/cache
+
+  frontend_build:
+    image: node:18-alpine
+    commands:
+      - echo "Building the frontend..."
+      - npm install
+      - npm run build
+
+  deploy_backend:
+    image: appleboy/ssh-action
+    commands:
+      - echo "Deploying the backend..."
+      - scp -r ./backend username@your-server:/path/to/backend
+    when:
+      branch: main
+
+  deploy_frontend:
+    image: appleboy/ssh-action
+    commands:
+      - echo "Deploying the frontend..."
+      - scp -r ./frontend username@your-server:/path/to/frontend
+    when:
+      branch: main
+
+when:
+  branch: main
+  event: push
