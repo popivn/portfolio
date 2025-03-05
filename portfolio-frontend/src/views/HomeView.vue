@@ -1,5 +1,5 @@
 <template>
-  <div>Ci/Cd test 22</div>
+  <div>Ci/Cd test 2</div>
   <div class="bg-gradient-secondary">
     <Layout :tabs="tabs">
       <template #default="{ activeTab }">
