@@ -31,15 +31,15 @@ services:
     image: woodpeckerci/woodpecker-server:latest
     container_name: woodpecker-server
     ports:
-      - "9000:8000" # Woodpecker UI/API
-      - "9001:9000" # GRPC port
+      - "9000:8000"
+      - "9001:9000"
     volumes:
       - woodpecker-server-data:/var/lib/woodpecker
     environment:
       - WOODPECKER_OPEN=true
       - WOODPECKER_HOST=http://localhost:9000
       - WOODPECKER_GITEA=true
-      - WOODPECKER_GITEA_URL=https://git.dev.solved.cz/
+      - WOODPECKER_GITEA_URL=https://git.dev.solved.cz
       - WOODPECKER_GITEA_CLIENT=d7685583-9c5f-4cdd-b334-f39837d7f327
       - WOODPECKER_GITEA_SECRET=Hhbi92SNDLsQ1Pmn2MPXp6pdwdVjXJr_VXjuHGFHlyM=
       - WOODPECKER_AGENT_SECRET=a3c8f79b1c4d47b2a5d8e3f2c1a7b9d4
@@ -48,7 +48,8 @@ services:
       - WOODPECKER_DATABASE_DATASOURCE=/var/lib/woodpecker/woodpecker.sqlite
       - WOODPECKER_GRPC_SECURE=false
       - WOODPECKER_GRPC_ADDR=:9000
-      - WOODPECKER_GITEA_SERVER=https://git.dev.solved.cz/
+      - WOODPECKER_GITEA_SKIP_VERIFY=true
+      - WOODPECKER_LOG_LEVEL=debug
     networks:
       - app-network
       
