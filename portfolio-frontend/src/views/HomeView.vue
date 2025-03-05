@@ -1,4 +1,5 @@
 <template>
+  <div>Ci/Cd</div>
   <div class="bg-gradient-secondary">
     <Layout :tabs="tabs">
       <template #default="{ activeTab }">
