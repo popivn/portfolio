@@ -7,6 +7,7 @@ services:
     container_name: laravel-backend
     ports:
       - "8000:80"
+      - "9000:9000"
     volumes:
       - ./portfolio-backend:/var/www/html
     networks:
@@ -14,12 +15,12 @@ services:
 
   frontend:
     build:
-      context: ./portfolio-fontend
+      context: ./portfolio-frontend
     container_name: vue-frontend
     ports:
       - "5173:5173" 
     volumes:
-      - ./portfolio-fontend:/app 
+      - ./portfolio-frontend:/app 
       - /app/node_modules 
     command: npm run dev 
     environment:
