@@ -1,5 +1,5 @@
-pipeline:
-  backend_build:
+steps:
+  - name: "Backend Build"
     image: php:8.2-fpm
     commands:
       - cd portfolio-backend
@@ -23,7 +23,7 @@ pipeline:
       - chmod -R 775 storage bootstrap/cache
       - chown -R www-data:www-data storage bootstrap/cache
 
-  frontend_build:
+  - name: "Frontend Build"
     image: node:18-alpine
     commands:
       - cd portfolio-frontend
@@ -31,7 +31,7 @@ pipeline:
       - npm install
       - npm run build
 
-  deploy:
+  - name: "Deploy"
     image: drillster/drone-rsync
     settings:
       hosts:
@@ -54,13 +54,13 @@ pipeline:
     when:
       branch: main
 
-  restart_services:
+  - name: "Restart Services"
     image: appleboy/drone-ssh
     settings:
       host: your-server
       username: username
       key:
-        from_secret: ssh_key 
+        from_secret: ssh_key  # This is where secret is referenced
       port: 22
       script:
         - cd /path/to/deployment

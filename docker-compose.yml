@@ -9,6 +9,7 @@ services:
       - "8000:80"
     volumes:
       - ./portfolio-backend:/var/www/html
+      - backend-data:/var/www/html/storage # Thêm volume để lưu trữ dữ liệu
     networks:
       - app-network
 
@@ -21,12 +22,13 @@ services:
     volumes:
       - ./portfolio-frontend:/app 
       - /app/node_modules 
+      - frontend-data:/app/public # Thêm volume cho dữ liệu tĩnh của frontend
     command: npm run dev 
     environment:
       - CHOKIDAR_USEPOLLING=true 
     networks:
       - app-network
-      
+
   woodpecker-server:
     image: woodpeckerci/woodpecker-server:latest
     container_name: woodpecker-server
@@ -35,6 +37,7 @@ services:
       - "9001:9000"
     volumes:
       - woodpecker-server-data:/var/lib/woodpecker
+      - woodpecker-server-config:/etc/woodpecker  # Thêm volume cho cấu hình của Woodpecker
     environment:
       - WOODPECKER_OPEN=true
       - WOODPECKER_HOST=http://localhost:9000
@@ -48,11 +51,11 @@ services:
       - WOODPECKER_DATABASE_DATASOURCE=/var/lib/woodpecker/woodpecker.sqlite
       - WOODPECKER_GRPC_SECURE=false
       - WOODPECKER_GRPC_ADDR=:9000
-      - WOODPECKER_GITEA_SKIP_VERIFY=true
+      - WOODPECKER_GITEA_SKIP_VERIFY=false
       - WOODPECKER_LOG_LEVEL=debug
     networks:
       - app-network
-      
+
   woodpecker-agent:
     image: woodpeckerci/woodpecker-agent:latest
     container_name: woodpecker-agent
@@ -62,6 +65,7 @@ services:
       - woodpecker-server
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
+      - woodpecker-agent-config:/etc/woodpecker # Thêm volume cho cấu hình của Woodpecker Agent
     environment:
       - WOODPECKER_SERVER=woodpecker-server:9000
       - WOODPECKER_AGENT_SECRET=a3c8f79b1c4d47b2a5d8e3f2c1a7b9d4
@@ -75,3 +79,7 @@ networks:
 
 volumes:
   woodpecker-server-data:
+  woodpecker-server-config:
+  woodpecker-agent-config:
+  backend-data:
+  frontend-data:
