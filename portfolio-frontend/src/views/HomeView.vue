@@ -1,5 +1,5 @@
 <template>
-  <div>Hehe</div>
+  <div>Heheehehehehe</div>
   <div class="bg-gradient-secondary">
     <Layout :tabs="tabs">
       <template #default="{ activeTab }">
