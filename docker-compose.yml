@@ -42,17 +42,17 @@ services:
       - WOODPECKER_OPEN=true
       - WOODPECKER_HOST=http://localhost:9000
       - WOODPECKER_GITEA=true
-      - WOODPECKER_GITEA_URL=https://git.dev.solved.cz
-      - WOODPECKER_GITEA_CLIENT=d7685583-9c5f-4cdd-b334-f39837d7f327
-      - WOODPECKER_GITEA_SECRET=Hhbi92SNDLsQ1Pmn2MPXp6pdwdVjXJr_VXjuHGFHlyM=
-      - WOODPECKER_AGENT_SECRET=a3c8f79b1c4d47b2a5d8e3f2c1a7b9d4
-      - WOODPECKER_ADMIN=admin
-      - WOODPECKER_DATABASE_DRIVER=sqlite3
-      - WOODPECKER_DATABASE_DATASOURCE=/var/lib/woodpecker/woodpecker.sqlite
-      - WOODPECKER_GRPC_SECURE=false
-      - WOODPECKER_GRPC_ADDR=:9000
-      - WOODPECKER_GITEA_SKIP_VERIFY=false
-      - WOODPECKER_LOG_LEVEL=debug
+      - WOODPECKER_GITEA_URL=${WOODPECKER_GITEA_URL}  # Sử dụng biến môi trường từ .env
+      - WOODPECKER_GITEA_CLIENT=${WOODPECKER_GITEA_CLIENT}  # Sử dụng biến môi trường từ .env
+      - WOODPECKER_GITEA_SECRET=${WOODPECKER_GITEA_SECRET}  # Sử dụng biến môi trường từ .env
+      - WOODPECKER_AGENT_SECRET=${WOODPECKER_AGENT_SECRET}  # Sử dụng biến môi trường từ .env
+      - WOODPECKER_ADMIN=${WOODPECKER_ADMIN}  # Sử dụng biến môi trường từ .env
+      - WOODPECKER_DATABASE_DRIVER=${WOODPECKER_DATABASE_DRIVER}  # Sử dụng biến môi trường từ .env
+      - WOODPECKER_DATABASE_DATASOURCE=${WOODPECKER_DATABASE_DATASOURCE}  # Sử dụng biến môi trường từ .env
+      - WOODPECKER_GRPC_SECURE=${WOODPECKER_GRPC_SECURE}  # Sử dụng biến môi trường từ .env
+      - WOODPECKER_GRPC_ADDR=${WOODPECKER_GRPC_ADDR}  # Sử dụng biến môi trường từ .env
+      - WOODPECKER_GITEA_SKIP_VERIFY=${WOODPECKER_GITEA_SKIP_VERIFY}  # Sử dụng biến môi trường từ .env
+      - WOODPECKER_LOG_LEVEL=${WOODPECKER_LOG_LEVEL}  # Sử dụng biến môi trường từ .env
     networks:
       - app-network
 
@@ -68,8 +68,8 @@ services:
       - woodpecker-agent-config:/etc/woodpecker # Thêm volume cho cấu hình của Woodpecker Agent
     environment:
       - WOODPECKER_SERVER=woodpecker-server:9000
-      - WOODPECKER_AGENT_SECRET=a3c8f79b1c4d47b2a5d8e3f2c1a7b9d4
-      - WOODPECKER_GRPC_SECURE=false
+      - WOODPECKER_AGENT_SECRET=${WOODPECKER_AGENT_SECRET}  # Sử dụng biến môi trường từ .env
+      - WOODPECKER_GRPC_SECURE=${WOODPECKER_GRPC_SECURE}  # Sử dụng biến môi trường từ .env
     networks:
       - app-network
 

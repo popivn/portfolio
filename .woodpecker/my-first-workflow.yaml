@@ -1,4 +1,3 @@
-# .woodpecker/my-first-workflow.yaml
 when:
   - event: push
     branch: main
@@ -10,16 +9,24 @@ steps:
     commands:
       - cd portfolio-backend
       - echo "Building the backend..."
-      - apt-get update && apt-get install -y \
-          libpng-dev libjpeg-dev libfreetype6-dev libzip-dev unzip git curl nginx gnupg2 \
-          && docker-php-ext-configure gd --with-freetype --with-jpeg \
-          && docker-php-ext-install gd zip pdo pdo_mysql opcache
-      - curl https://packages.microsoft.com/keys/microsoft.asc | apt-key add - \
-          && curl https://packages.microsoft.com/config/debian/11/prod.list > /etc/apt/sources.list.d/mssql-release.list \
-          && apt-get update \
-          && ACCEPT_EULA=Y apt-get install -y msodbcsql18 unixodbc-dev \
-          && pecl install sqlsrv pdo_sqlsrv \
-          && docker-php-ext-enable sqlsrv pdo_sqlsrv
+      # Cài đặt các gói cơ bản trước
+      - apt-get update
+      - apt-get install -y gnupg2 apt-transport-https
+      # Cài đặt các dependencies cho PHP extensions
+      - apt-get install -y libpng-dev libjpeg62-turbo-dev libfreetype6-dev libzip-dev unzip git curl nginx
+      # Cấu hình và cài đặt các PHP extensions
+      - docker-php-ext-configure gd --with-freetype --with-jpeg
+      - docker-php-ext-install gd zip pdo pdo_mysql opcache
+      # Cài đặt MSSQL dependencies
+      - curl https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor > /etc/apt/trusted.gpg.d/microsoft.gpg
+      - curl https://packages.microsoft.com/config/debian/11/prod.list > /etc/apt/sources.list.d/mssql-release.list
+      - apt-get update
+      - ACCEPT_EULA=Y apt-get install -y msodbcsql18 unixodbc-dev
+      - pecl install sqlsrv pdo_sqlsrv
+      - docker-php-ext-enable sqlsrv pdo_sqlsrv
+      # Cài đặt Composer
+      - curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
+      # Cài đặt các dependencies PHP
       - composer install --optimize-autoloader --no-dev
       - cp .env.example .env
       - php artisan key:generate
@@ -46,8 +53,6 @@ steps:
       hosts:
         - your-server
       user: username
-      key:
-        from_secret: ssh_key
       source: ./
       target: /path/to/deployment
       recursive: true
