@@ -1,5 +1,11 @@
+# .woodpecker/my-first-workflow.yaml
+when:
+  - event: push
+    branch: main
+  - event: pull_request
+
 steps:
-  backend_build:
+  - name: backend_build
     image: php:8.2-fpm
     commands:
       - cd portfolio-backend
@@ -23,7 +29,7 @@ steps:
       - chmod -R 775 storage bootstrap/cache
       - chown -R www-data:www-data storage bootstrap/cache
 
-  frontend_build:
+  - name: frontend_build
     image: node:18-alpine
     commands:
       - cd portfolio-frontend
@@ -31,8 +37,11 @@ steps:
       - npm install
       - npm run build
 
-  deploy:
+  - name: deploy
     image: drillster/drone-rsync
+    when:
+      - event: push
+        branch: main
     settings:
       hosts:
         - your-server
@@ -51,11 +60,13 @@ steps:
         - portfolio-backend/vendor/
         - portfolio-frontend/node_modules/
         - .git
-    when:
-      branch: main
 
-  restart_services:
+  - name: restart_services
     image: appleboy/drone-ssh
+    when:
+      - event: push
+        branch: main
+        status: success
     settings:
       host: your-server
       username: username
@@ -66,6 +77,3 @@ steps:
         - cd /path/to/deployment
         - docker-compose restart backend
         - docker-compose restart frontend
-    when:
-      branch: main
-      status: success
