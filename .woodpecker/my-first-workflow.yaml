@@ -65,6 +65,13 @@ steps:
           sed -i 's/Vue\.config\.devtools/\/\/ Vue.config.devtools/g' src/main.ts
         fi
       - |
+        # Alternative sed approach if the above doesn't work
+        if [ -f "src/main.ts" ] && grep -q "Vue.config.productionTip" src/main.ts; then
+          # Use perl instead of sed for more reliable substitution
+          perl -i -pe 's/Vue\.config\.productionTip/\/\/ Vue.config.productionTip/g' src/main.ts
+          perl -i -pe 's/Vue\.config\.devtools/\/\/ Vue.config.devtools/g' src/main.ts
+        fi
+      - |
         # Modify the build command to bypass type checking
         if grep -q "type-check" package.json; then
           npm run build-only || (npm run build -- --skipTypeCheck || echo "Build completed with warnings")
