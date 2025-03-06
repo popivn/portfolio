@@ -1,15 +1,71 @@
-when:
-  - event: push
-    branch: main
-
 steps:
-  - name: build
-    image: debian
+  backend_build:
+    image: php:8.2-fpm
     commands:
-      - echo "This is the build step"
-      - echo "binary-data-123" > executable
-  - name: a-test-step
-    image: golang:1.16
+      - cd portfolio-backend
+      - echo "Building the backend..."
+      - apt-get update && apt-get install -y \
+          libpng-dev libjpeg-dev libfreetype6-dev libzip-dev unzip git curl nginx gnupg2 \
+          && docker-php-ext-configure gd --with-freetype --with-jpeg \
+          && docker-php-ext-install gd zip pdo pdo_mysql opcache
+      - curl https://packages.microsoft.com/keys/microsoft.asc | apt-key add - \
+          && curl https://packages.microsoft.com/config/debian/11/prod.list > /etc/apt/sources.list.d/mssql-release.list \
+          && apt-get update \
+          && ACCEPT_EULA=Y apt-get install -y msodbcsql18 unixodbc-dev \
+          && pecl install sqlsrv pdo_sqlsrv \
+          && docker-php-ext-enable sqlsrv pdo_sqlsrv
+      - composer install --optimize-autoloader --no-dev
+      - cp .env.example .env
+      - php artisan key:generate
+      - php artisan config:cache
+      - php artisan route:cache
+      - php artisan view:cache
+      - chmod -R 775 storage bootstrap/cache
+      - chown -R www-data:www-data storage bootstrap/cache
+
+  frontend_build:
+    image: node:18-alpine
     commands:
-      - echo "Testing ..."
-      - ./executable
+      - cd portfolio-frontend
+      - echo "Building the frontend..."
+      - npm install
+      - npm run build
+
+  deploy:
+    image: drillster/drone-rsync
+    settings:
+      hosts:
+        - your-server
+      user: username
+      key:
+        from_secret: ssh_key
+      source: ./
+      target: /path/to/deployment
+      recursive: true
+      delete: false
+      include:
+        - portfolio-backend/
+        - portfolio-frontend/dist/
+      exclude:
+        - portfolio-backend/node_modules/
+        - portfolio-backend/vendor/
+        - portfolio-frontend/node_modules/
+        - .git
+    when:
+      branch: main
+
+  restart_services:
+    image: appleboy/drone-ssh
+    settings:
+      host: your-server
+      username: username
+      key:
+        from_secret: ssh_key
+      port: 22
+      script:
+        - cd /path/to/deployment
+        - docker-compose restart backend
+        - docker-compose restart frontend
+    when:
+      branch: main
+      status: success
