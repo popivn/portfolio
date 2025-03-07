@@ -13,8 +13,4 @@ setupFontAwesome(app)
 app.use(createPinia())
 app.use(router)
 
-if (process.env.NODE_ENV === 'production') {
-    app.config.devtools = false
-}
-
 app.mount('#app')
