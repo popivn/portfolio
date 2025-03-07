@@ -9,10 +9,8 @@ class UserDetailController extends Controller
 {
     public function getFirstUserDetail(): JsonResponse
     {
-        // Lấy dòng đầu tiên của user_id = 1
         $userDetail = UserDetail::where('user_id', 1)->first();
 
-        // Kiểm tra nếu không tìm thấy dữ liệu
         if (!$userDetail) {
             return response()->json([
                 'success' => false,
