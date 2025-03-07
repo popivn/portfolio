@@ -32,7 +32,6 @@ const experienceSection = ref(null);
 const projectsSection = ref(null);
 const postsSection = ref(null);
 
-// Get all section refs in an object
 const getSectionRefs = () => ({
   About: aboutSection.value,
   Experience: experienceSection.value,
@@ -40,7 +39,6 @@ const getSectionRefs = () => ({
   Posts: postsSection.value
 });
 
-// Function to scroll to a specific section
 const scrollToSection = (tabName) => {
   const sectionRefs = getSectionRefs();
   const section = sectionRefs[tabName];
@@ -50,11 +48,9 @@ const scrollToSection = (tabName) => {
   }
 };
 
-// Function to determine which section is currently in view
 const handleScroll = () => {
   const sectionRefs = getSectionRefs();
   
-  // Find which section is most visible in the viewport
   let maxVisibleSection = null;
   let maxVisibleArea = 0;
   
@@ -70,7 +66,6 @@ const handleScroll = () => {
     }
   });
   
-  // Update the active tab in the Layout component
   if (maxVisibleSection) {
     window.dispatchEvent(new CustomEvent('update-active-tab', { 
       detail: { tab: maxVisibleSection } 
@@ -78,10 +73,8 @@ const handleScroll = () => {
   }
 };
 
-// Set up scroll event listener
 onMounted(() => {
   window.addEventListener('scroll', handleScroll);
-  // Initial check to set the active tab based on visible section
   setTimeout(handleScroll, 100);
 });
 
