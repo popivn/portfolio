@@ -31,7 +31,6 @@
                     </div>
 
                     <h2 class="text-3xl font-bold text-white mb-8 flex items-center gap-3 relative">
-                        <span class="inline-block w-1.5 h-8 bg-primary rounded-full mr-1"></span>
                         Contact Me
                         <div class="absolute -bottom-3 left-0 w-16 h-0.5 bg-primary/50 rounded-full"></div>
                     </h2>

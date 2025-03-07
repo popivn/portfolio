@@ -69,11 +69,11 @@
           </div>
           
           <div 
-            class="w-4 h-4 rounded-full absolute left-[28%] sm:left-1/4 transform -translate-x-1/2 border-2 border-white"
+            class="w-5 h-5 rounded-full absolute left-[28%] sm:left-1/4 transform -translate-x-1/2 border-2 border-white"
             :class="getCategoryDotColor(post.category)">
           </div>
 
-          <div class="ml-2 sm:ml-[8%] post flex-1 p-6 rounded-lg shadow-md hover:shadow-xl transition-all duration-300 border-l-4"
+          <div class="bg-gradient-secondary ml-2 sm:ml-[8%] post flex-1 p-6 rounded-lg shadow-md hover:shadow-xl transition-all duration-300 border-l-4"
                :class="getCategoryBorderColor(post.category)">
             <div class="flex justify-between items-start mb-2">
               <span class="text-xs font-medium px-2 py-1 rounded-full" :class="getCategoryBadgeClass(post.category)">
@@ -160,7 +160,6 @@ const filteredPosts = computed(() => {
 const selectPost = (post) => {
   selectedPost.value = post;
   showTimeline.value = false;
-  window.scrollTo({ top: 0, behavior: 'smooth' });
 };
 
 const showTimelineView = () => {

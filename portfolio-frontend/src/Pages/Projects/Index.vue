@@ -1,5 +1,5 @@
 <template>
-    <div id="app" class="bg-gradient-secondary shadow-lg w-full py-12 px-4 sm:px-6 lg:px-8">
+    <div id="app" class="shadow-lg w-full py-12 px-4 sm:px-6 lg:px-8">
       <h2 class="text-2xl font-bold text-center mb-8 text-primary">Project</h2>
       <ProjectTimeline :projects="projects" />
     </div>
@@ -11,7 +11,17 @@
   const projects = [
     {
       date: '2024-11-6 to Present',
-      name: 'Logistica - Full-stack Developer',
+      name: 'Logistical - Full-stack Developer Phrase I',
+      description: 'Worked on building the backend, API, repository, service, and helper functions for the Logistica platform. Improved the interface using Bootstrap and JavaScript, including the development of QR scanner and barcode generator.',
+      icons: [
+        'src/assets/images/icon/laravel_icon.jpg',
+        'src/assets/images/icon/mysql_icon.jpg',
+        'src/assets/images/icon/sql_icon.jpg',
+      ],
+    },
+    {
+      date: '2025-04-01',
+      name: 'Logistical - Full-stack Developer Phrase II',
       description: 'Worked on building the backend, API, repository, service, and helper functions for the Logistica platform. Improved the interface using Bootstrap and JavaScript, including the development of QR scanner and barcode generator.',
       icons: [
         'src/assets/images/icon/laravel_icon.jpg',
@@ -28,7 +38,10 @@
         'src/assets/images/icon/vue_icon.jpg',
         'src/assets/images/icon/tailwind_icon.jpg',
         'src/assets/images/icon/sqlite_icon.jpg',
-      ]
+      ],
+      github: [
+        'https://github.com/lenhatquangg/campus-expense-manager',
+      ],
     },
     {
       date: '2024-08-14 to 2024-08-21',
@@ -38,6 +51,12 @@
         'src/assets/images/icon/laravel_icon.jpg',
         'src/assets/images/icon/bootstrap_icon.jpg',
         'src/assets/images/icon/mysql_icon.jpg',
+      ],
+      github: [
+        'https://github.com/lenhatquangg/pizza',
+      ],
+      website: [
+        'https://www.piazzaorsillo.com',
       ]
     },
     {
@@ -48,7 +67,10 @@
         'src/assets/images/icon/asp_icon.jpg',
         'src/assets/images/icon/bootstrap_icon.jpg',
         'src/assets/images/icon/sql_icon.jpg'
-      ]
+      ],
+      github: [
+        'https://github.com/lenhatquangg/Student-Information-Management-System',
+      ],
     },
     {
       date: '2022-04-01 to 2022-05-31',
@@ -58,7 +80,10 @@
         'src/assets/images/icon/react_icon.jpg',
         'src/assets/images/icon/bootstrap_icon.jpg',
         'src/assets/images/icon/mysql_icon.jpg',
-      ]
+      ],
+      github: [
+        'https://github.com/lenhatquangg/PiStore',
+      ],
     },
     {
       date: '2025-1-1 to Present',
@@ -67,7 +92,10 @@
       icons: [
         'src/assets/images/icon/vue_icon.jpg',
         'src/assets/images/icon/tailwind_icon.jpg',
-      ]
+      ],
+      github: [
+        'https://github.com/lenhatquangg/portfolio',
+      ],
     }
   ]
   </script>

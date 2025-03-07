@@ -1,5 +1,5 @@
 <template>
-  <div id="app" class="bg-gradient-secondary shadow-lg w-full py-12 px-4 sm:px-6 lg:px-8">
+  <div id="app" class=" shadow-lg w-full py-12 px-4 sm:px-6 lg:px-8">
     <h2 class="text-2xl font-bold text-center mb-8 text-primary">Blog</h2>
     <BlogTimeline :posts="posts" />
   </div>

@@ -1,5 +1,6 @@
 <template>
     <div id="app" class="gradient-primary  py-12 px-4 sm:px-6 lg:px-8">
+        <h2 class="text-2xl font-bold text-center mb-8 text-primary">Experience</h2>
         <ExperienceSection :experiences="experiences" />
     </div>
 </template>
