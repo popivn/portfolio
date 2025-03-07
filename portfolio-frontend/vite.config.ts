@@ -5,17 +5,16 @@ import vue from '@vitejs/plugin-vue'
 import vueJsx from '@vitejs/plugin-vue-jsx'
 import vueDevTools from 'vite-plugin-vue-devtools'
 
-// https://vite.dev/config/
 export default defineConfig({
   base: './',
   plugins: [
     vue(),
     vueJsx(),
-    vueDevTools(),
-  ],
+    process.env.NODE_ENV === 'development' ? vueDevTools() : null,
+  ].filter(Boolean),  
   resolve: {
     alias: {
-      '@': fileURLToPath(new URL('./src', import.meta.url))
+      '@': fileURLToPath(new URL('./src', import.meta.url)),
     },
   },
   server: {
@@ -29,7 +28,6 @@ export default defineConfig({
       clientPort: 5173,
       host: 'localhost' 
     },
-    allowedHosts: ['popivn.onrender.com']
+    allowedHosts: ['popivn.onrender.com'],
   }
-  
 })
