@@ -103,7 +103,6 @@
     }
   });
   
-  // Parse dates and add status information
   const processedProjects = computed(() => {
     const today = new Date();
     
@@ -117,7 +116,6 @@
       } else {
         startDate = new Date(project.date);
         endDate = new Date(project.date);
-        // For single-day projects, set end date to same day
       }
       
       return {
@@ -130,12 +128,10 @@
     });
   });
   
-  // Sort projects by start date (newest first)
   const sortedProjects = computed(() => {
     return [...processedProjects.value].sort((a, b) => b.startDate - a.startDate);
   });
   
-  // Format date to be more readable
   const formatDate = (date) => {
     if (!date) return 'Present';
     
@@ -143,10 +139,8 @@
     return date.toLocaleDateString('en-US', options);
   };
   
-  // Calculate project duration
   const getProjectDuration = (project) => {
     if (!project.endDate) {
-      // For ongoing projects
       const now = new Date();
       const months = (now.getFullYear() - project.startDate.getFullYear()) * 12 + 
                     (now.getMonth() - project.startDate.getMonth());
@@ -157,10 +151,8 @@
       }
       return months === 1 ? '1 month' : `${months} months`;
     } else if (project.startDate.getTime() === project.endDate.getTime()) {
-      // For single day projects
       return '1 day';
     } else {
-      // For completed projects
       const months = (project.endDate.getFullYear() - project.startDate.getFullYear()) * 12 + 
                     (project.endDate.getMonth() - project.startDate.getMonth());
       
@@ -172,12 +164,10 @@
     }
   };
   
-  // Check if project is active
   const isActive = (project) => {
     return project.status === 'active';
   };
   
-  // Get status color for timeline dot
   const getStatusColor = (project) => {
     switch (project.status) {
       case 'active': return 'bg-green-500';
@@ -187,7 +177,6 @@
     }
   };
   
-  // Get status text
   const getStatusText = (project) => {
     switch (project.status) {
       case 'active': return 'Active';
@@ -197,7 +186,6 @@
     }
   };
   
-  // Get status badge class
   const getStatusBadgeClass = (project) => {
     switch (project.status) {
       case 'active': return 'bg-green-100 text-green-800';

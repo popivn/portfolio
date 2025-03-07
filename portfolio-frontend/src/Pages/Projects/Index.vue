@@ -10,7 +10,7 @@
   
   const projects = [
     {
-      date: '2024-06-11 to Present',
+      date: '2024-11-6 to Present',
       name: 'Logistica - Full-stack Developer',
       description: 'Worked on building the backend, API, repository, service, and helper functions for the Logistica platform. Improved the interface using Bootstrap and JavaScript, including the development of QR scanner and barcode generator.',
       icons: [
@@ -61,7 +61,7 @@
       ]
     },
     {
-      date: '2024-01-15 to Present',
+      date: '2025-1-1 to Present',
       name: 'Portfolio Website - Personal Project',
       description: 'Developing a personal portfolio website using Vue.js and Tailwind CSS to showcase my projects and skills. Implementing responsive design and modern UI/UX principles.',
       icons: [
