@@ -39,7 +39,7 @@
         </div>
       </div>
       
-      <ContactForm />
+      <ContactForm/>
     </div>
   </template>
   
