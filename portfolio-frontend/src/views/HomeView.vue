@@ -3,16 +3,16 @@
     <Layout :tabs="tabs" @change-tab="scrollToSection">
       <template #default="{ activeTab }">
         <div class="sections-container">
-          <section id="About" ref="aboutSection" class="section">
+          <section id="About" ref="aboutSection">
             <AboutPage />
           </section>
-          <section id="Experience" ref="experienceSection" class="section">
+          <section id="Experience" ref="experienceSection">
             <ExperiencePage />
           </section>
-          <section id="Projects" ref="projectsSection" class="section">
+          <section id="Projects" ref="projectsSection">
             <ProjectsPage />
           </section>
-          <section id="Posts" ref="postsSection" class="section">
+          <section id="Posts" ref="postsSection">
             <PostsPage />
           </section>
         </div>
@@ -82,14 +82,3 @@ onUnmounted(() => {
   window.removeEventListener('scroll', handleScroll);
 });
 </script>
-
-<style scoped>
-.sections-container {
-  scroll-behavior: smooth;
-}
-
-.section {
-  min-height: 100vh;
-  padding: 2rem 0;
-}
-</style>
