@@ -130,7 +130,7 @@ const processedProjects = computed(() => {
   const today = new Date();
   
   return props.projects.map(project => {
-    let startDate, endDate, status; // Khai báo status ở đây
+    let startDate, endDate, status; 
     
     if (project.date.includes('to')) {
       const [start, end] = project.date.split(' to ');
