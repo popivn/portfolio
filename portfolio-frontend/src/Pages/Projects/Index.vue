@@ -11,7 +11,7 @@
   const projects = [
     {
       date: '2024-11-6 to Present',
-      name: 'Logistical - Full-stack Developer Phrase I',
+      name: 'Logistical - Full-stack Developer Phase I',
       description: 'Worked on building the backend, API, repository, service, and helper functions for the Logistica platform. Improved the interface using Bootstrap and JavaScript, including the development of QR scanner and barcode generator.',
       icons: [
         'src/assets/images/icon/laravel_icon.jpg',
@@ -21,7 +21,7 @@
     },
     {
       date: '2025-04-01',
-      name: 'Logistical - Full-stack Developer Phrase II',
+      name: 'Logistical - Full-stack Developer Phase II',
       description: 'Worked on building the backend, API, repository, service, and helper functions for the Logistica platform. Improved the interface using Bootstrap and JavaScript, including the development of QR scanner and barcode generator.',
       icons: [
         'src/assets/images/icon/laravel_icon.jpg',

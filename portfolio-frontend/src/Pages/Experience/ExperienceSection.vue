@@ -11,7 +11,7 @@
             <img 
               :src="experience.image" 
               :alt="`${experience.name} logo`" 
-              class="w-auto h-auto object-contain"
+              class="w-auto h-36 object-contain"
             />
           </div>
           
