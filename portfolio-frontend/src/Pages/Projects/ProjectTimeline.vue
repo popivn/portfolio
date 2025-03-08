@@ -111,8 +111,6 @@ const props = defineProps({
     required: true
   }
 });
-
-// Popup state
 const showLinkPopup = ref(false);
 const selectedProject = ref(null);
 
@@ -132,23 +130,24 @@ const processedProjects = computed(() => {
   const today = new Date();
   
   return props.projects.map(project => {
-    let startDate, endDate;
+    let startDate, endDate, status; // Khai báo status ở đây
     
     if (project.date.includes('to')) {
       const [start, end] = project.date.split(' to ');
       startDate = new Date(start);
       endDate = end === 'Present' ? null : new Date(end);
+      status = endDate === null || endDate > today ? 'active' : 'completed';
     } else {
       startDate = new Date(project.date);
-      endDate = new Date(project.date);
+      endDate = null;
+      status = 'upcoming'; 
     }
     
     return {
       ...project,
       startDate,
       endDate,
-      status: !endDate ? 'active' : 
-              endDate > today ? 'upcoming' : 'completed'
+      status, 
     };
   });
 });
@@ -220,13 +219,10 @@ const getStatusBadgeClass = (project) => {
   }
 };
 
-// Function to get technology name from icon path
 const getTechName = (iconPath) => {
-  // Extract the technology name from the icon path
   const filename = iconPath.split('/').pop();
   const techName = filename.split('_')[0];
   
-  // Map the technology names to more readable formats
   const techMap = {
     'laravel': 'Laravel',
     'vue': 'Vue.js',
