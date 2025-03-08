@@ -51,8 +51,8 @@
                 {{ getStatusText(project) }}
               </div>
               <div class="icons flex space-x-2">
-                <img v-for="(icon, i) in project.icons" :key="i" :src="icon" :alt="'Icon for ' + project.name"
-                  class="w-6 h-6 rounded-full" />
+                <img v-for="(icon, i) in project.icons" :key="i" :src="icon" :alt="getTechName(icon)"
+                  class="w-6 h-6 rounded-full" :title="getTechName(icon)" />
               </div>
             </div>
           </div>
@@ -85,58 +85,25 @@
             </div>
             <p class="text-sm text-secondary">{{ project.description }}</p>
             <div class="icons flex justify-end space-x-2 mt-4">
-              <img v-for="(icon, i) in project.icons" :key="i" :src="icon" :alt="'Icon for ' + project.name"
-                class="w-6 h-6 rounded-full" />
+              <img v-for="(icon, i) in project.icons" :key="i" :src="icon" :alt="getTechName(icon)"
+                class="w-6 h-6 rounded-full" :title="getTechName(icon)" />
             </div>
           </div>
         </div>
       </div>
     </div>
 
-    <!-- Project Links Popup -->
-    <div v-if="showLinkPopup" 
-         class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50"
-         @click="closeLinkPopup">
-      <div class="bg-white bg-gradient-primary rounded-lg shadow-xl p-6 max-w-sm w-full mx-4 transform transition-all"
-           @click.stop>
-        <div class="flex justify-between items-center mb-4">
-          <h3 class="text-xl font-bold text-primary">{{ selectedProject?.name }}</h3>
-          <button @click="closeLinkPopup" class="text-gray-500 hover:text-gray-700">
-            <font-awesome-icon :icon="['fas', 'times']" />
-          </button>
-        </div>
-        
-        <div v-if="!hasLinks" class="text-center py-4 text-secondary">
-          No links available for this project
-        </div>
-        
-        <div v-else class="flex justify-center gap-8 py-4">
-          <a v-if="selectedProject?.github?.length" 
-             :href="selectedProject.github[0]" 
-             target="_blank" 
-             rel="noopener noreferrer"
-             class="flex flex-col items-center gap-2 text-primary hover:text-primary-dark transition-colors">
-            <font-awesome-icon :icon="['fab', 'github']" class="text-3xl" />
-            <span class="text-sm">GitHub</span>
-          </a>
-          
-          <a v-if="selectedProject?.website?.length" 
-             :href="selectedProject.website[0]" 
-             target="_blank" 
-             rel="noopener noreferrer"
-             class="flex flex-col items-center gap-2 text-primary hover:text-primary-dark transition-colors">
-            <font-awesome-icon :icon="['fas', 'paper-plane']" class="text-3xl" />
-            <span class="text-sm">Website</span>
-          </a>
-        </div>
-      </div>
-    </div>
+    <ProjectDetailsPopup 
+      :show="showLinkPopup" 
+      :project="selectedProject" 
+      @close="closeLinkPopup" 
+    />
   </div>
 </template>
 
 <script setup>
 import { computed, ref } from 'vue';
-import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
+import ProjectDetailsPopup from './ProjectDetailsPopup.vue';
 
 const props = defineProps({
   projects: {
@@ -149,17 +116,7 @@ const props = defineProps({
 const showLinkPopup = ref(false);
 const selectedProject = ref(null);
 
-const hasLinks = computed(() => {
-  if (!selectedProject.value) return false;
-  
-  return (
-    (selectedProject.value.github && selectedProject.value.github.length > 0) || 
-    (selectedProject.value.website && selectedProject.value.website.length > 0)
-  );
-});
-
 const openLinkPopup = (project, event) => {
-  // Prevent event bubbling
   event.stopPropagation();
   
   selectedProject.value = project;
@@ -262,5 +219,26 @@ const getStatusBadgeClass = (project) => {
     default: return 'bg-gray-100 text-gray-800';
   }
 };
-</script>
 
+// Function to get technology name from icon path
+const getTechName = (iconPath) => {
+  // Extract the technology name from the icon path
+  const filename = iconPath.split('/').pop();
+  const techName = filename.split('_')[0];
+  
+  // Map the technology names to more readable formats
+  const techMap = {
+    'laravel': 'Laravel',
+    'vue': 'Vue.js',
+    'mysql': 'MySQL',
+    'sql': 'SQL',
+    'tailwind': 'Tailwind CSS',
+    'bootstrap': 'Bootstrap',
+    'sqlite': 'SQLite',
+    'asp': 'ASP.NET',
+    'react': 'React'
+  };
+  
+  return techMap[techName] || techName.charAt(0).toUpperCase() + techName.slice(1);
+};
+</script>
