@@ -3,7 +3,7 @@
       <Shape />
     </div>
   
-    <div class="pb-8 w-full relative z-0">
+    <div class="pb-8 w-full relative z-100">
       <div 
         class="avatar-container absolute -top-[130px] left-1/2 -translate-x-1/2 transition-transform duration-300 ease-in-out"
         :style="{ transform: `translateY(${avatarOffset}px) translateX(-50%)` }" 
@@ -38,7 +38,6 @@
           </div>
         </div>
       </div>
-      
       <ContactForm/>
     </div>
   </template>

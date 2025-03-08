@@ -9,9 +9,10 @@
             <div v-if="showFormPopup"
                 class="fixed inset-0 bg-black/80 backdrop-blur-md flex justify-center items-center z-[9999] p-4"
                 @click="closeOnOutsideClick">
-                <div class="bg-gradient-secondary border border-primary/30 p-8 rounded-2xl shadow-2xl w-full max-w-md relative transform transition-all duration-500 ease-out"
+                <div class="bg-gradient-secondary border border-primary/30 p-8 rounded-2xl shadow-2xl w-full max-w-md relative z-[9999] transform transition-all duration-500 ease-out"
                     :class="{ 'scale-100 opacity-100': showFormPopup, 'scale-95 opacity-0': !showFormPopup }"
                     @click.stop>
+                    <!-- Form Content -->
                     <div
                         class="absolute -top-5 -left-5 w-24 h-24 bg-gradient-primary rounded-full -z-10 blur-xl opacity-60">
                     </div>
@@ -102,23 +103,6 @@
                         class="absolute -top-4 -right-4 bg-gradient-primary text-white p-2.5 rounded-full hover:bg-gradient-hover transition-all duration-200 shadow-lg hover:scale-110 hover:rotate-90">
                         <font-awesome-icon icon="fa-solid fa-times" class="w-4 h-4" />
                     </button>
-                </div>
-            </div>
-        </Transition>
-
-        <Transition name="notification">
-            <div v-if="notification.show"
-                class="fixed bottom-6 right-6 p-5 rounded-xl shadow-2xl max-w-md z-[110] flex items-center gap-4"
-                :class="notification.type === 'success' ? 'bg-green-800/90 text-white backdrop-blur-sm border border-green-600/30' : 'bg-red-800/90 text-white backdrop-blur-sm border border-red-600/30'">
-                <div class="p-2 rounded-full" :class="notification.type === 'success' ? 'bg-green-700' : 'bg-red-700'">
-                    <font-awesome-icon icon="fa-solid fa-check-circle" v-if="notification.type === 'success'"
-                        class="w-5 h-5 flex-shrink-0" />
-                    <font-awesome-icon icon="fa-solid fa-exclamation-circle" v-if="notification.type === 'error'"
-                        class="w-5 h-5 flex-shrink-0" />
-                </div>
-                <div>
-                    <h4 class="font-medium text-sm">{{ notification.type === 'success' ? 'Success!' : 'Error!' }}</h4>
-                    <p class="text-sm opacity-90">{{ notification.message }}</p>
                 </div>
             </div>
         </Transition>
