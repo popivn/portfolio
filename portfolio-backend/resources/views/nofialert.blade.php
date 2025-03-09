@@ -22,7 +22,7 @@
                                 <div class="notification-item">
                                     <i class="fas fa-envelope me-2"></i>
                                     <div>
-                                        <strong>${notification.data.name || 'Khách hàng'}</strong> đã gửi tin nhắn.
+                                        <strong>${notification.data.name || 'Client'}</strong> sent.
                                         <div class="small text-muted">${new Date(notification.created_at).toLocaleString()}</div>
                                     </div>
                                 </div>
