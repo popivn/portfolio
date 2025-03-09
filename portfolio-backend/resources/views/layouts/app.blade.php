@@ -11,8 +11,37 @@
         <link rel="preconnect" href="https://fonts.bunny.net">
         <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
 
+        <!-- Font Awesome for icons -->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
         <!-- Bootstrap CSS -->
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+        <!-- Custom CSS -->
+        <style>
+            .notification-dropdown {
+                width: 300px;
+                max-height: 400px;
+                overflow-y: auto;
+            }
+
+            .notification-item {
+                display: flex;
+                align-items: center;
+                padding: 5px 0;
+            }
+
+            .badge-notification {
+                position: absolute;
+                top: 0;
+                right: 0;
+                font-size: 0.7rem;
+            }
+
+            .nav-item-notification {
+                position: relative;
+            }
+        </style>
 
         <!-- Scripts -->
         @vite(['resources/css/app.css', 'resources/js/app.js'])
