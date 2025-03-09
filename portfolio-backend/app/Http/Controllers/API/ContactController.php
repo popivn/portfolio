@@ -23,7 +23,6 @@ class ContactController extends Controller
 
             $contact = Contact::create($validated);
 
-            // Send email notification
             try {
                 Notification::route('mail', 'hieutt.fw@gmail.com')
                     ->notify(new NewContactNotification($contact));
@@ -31,7 +30,6 @@ class ContactController extends Controller
                 Log::error('Failed to send email notification: ' . $e->getMessage());
             }
 
-            // Send database notification to all admin users
             try {
                 $admins = User::where('is_admin', true)->get();
                 Notification::send($admins, new NewContactNotification($contact));

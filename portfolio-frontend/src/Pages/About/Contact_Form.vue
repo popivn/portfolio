@@ -102,7 +102,7 @@
   
     isSubmitting.value = true;
     try {
-      const response = await fetch('http://localhost:8000/contact', {
+      const response = await fetch('https://portfolio-nro7.onrender.com/contact', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
         body: JSON.stringify(form)

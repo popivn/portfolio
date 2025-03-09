@@ -1,7 +1,6 @@
 <script>
     document.addEventListener("DOMContentLoaded", function() {
         function fetchNotifications() {
-            console.log('test')
             fetch('/notifications')
                 .then(response => response.json())
                 .then(data => {
@@ -48,6 +47,6 @@
         }
 
         fetchNotifications();
-        setInterval(fetchNotifications, 5000); 
+        setInterval(fetchNotifications, 5000);
     });
 </script>
