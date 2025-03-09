@@ -1,215 +1,127 @@
 <template>
     <div>
-        <GradientButton @click="togglePopup"
-            class="transition-transform duration-300 ease-in-out hover:border hover:border-primary hover:scale-105">
-            Contact Me
-        </GradientButton>
-
-        <Transition name="fade">
-            <div v-if="showFormPopup"
-                class="fixed inset-0 bg-black/80 backdrop-blur-md flex justify-center items-center z-[9999] p-4"
-                @click="closeOnOutsideClick">
-                <div class="bg-gradient-secondary border border-primary/30 p-8 rounded-2xl shadow-2xl w-full max-w-md relative z-[9999] transform transition-all duration-500 ease-out"
-                    :class="{ 'scale-100 opacity-100': showFormPopup, 'scale-95 opacity-0': !showFormPopup }"
-                    @click.stop>
-                    <!-- Form Content -->
-                    <div
-                        class="absolute -top-5 -left-5 w-24 h-24 bg-gradient-primary rounded-full -z-10 blur-xl opacity-60">
-                    </div>
-                    <div
-                        class="absolute -bottom-5 -right-5 w-24 h-24 bg-gradient-primary rounded-full -z-10 blur-xl opacity-60">
-                    </div>
-                    <div class="absolute top-1/4 right-0 w-16 h-16 bg-primary/30 rounded-full -z-10 blur-lg opacity-30">
-                    </div>
-                    <div
-                        class="absolute bottom-1/4 left-0 w-16 h-16 bg-primary/30 rounded-full -z-10 blur-lg opacity-30">
-                    </div>
-
-                    <div class="absolute inset-0 opacity-5 -z-5 overflow-hidden rounded-2xl">
-                        <div class="absolute inset-0 bg-repeat opacity-10"
-                            style="background-image: url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAiIGhlaWdodD0iNDAiIHZpZXdCb3g9IjAgMCA0MCA0MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZyBmaWxsPSIjZmZmIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiPjxwYXRoIGQ9Ik0wIDBoNDB2NDBoLTQweiIgZmlsbD0ibm9uZSIvPjxwYXRoIGQ9Ik0xMCAyMGMwIDUuNTIzIDQuNDc3IDEwIDEwIDEwczEwLTQuNDc3IDEwLTEwLTQuNDc3LTEwLTEwLTEwLTEwIDQuNDc3LTEwIDEwem0xOCAwYzAgNC40MTgtMy41ODIgOC04IDhzLTgtMy41ODItOC04IDMuNTgyLTggOC04IDggMy41ODIgOCA4eiIvPjwvZz48L3N2Zz4=');">
-                        </div>
-                    </div>
-
-                    <h2 class="text-3xl font-bold text-white mb-8 flex items-center gap-3 relative">
-                        Contact Me
-                        <div class="absolute -bottom-3 left-0 w-16 h-0.5 bg-primary/50 rounded-full"></div>
-                    </h2>
-
-                    <form @submit.prevent="submitForm" class="space-y-6">
-                        <div class="space-y-2">
-                            <label class="block text-secondary text-sm font-medium">Full Name</label>
-                            <div class="relative group">
-                                <span
-                                    class="absolute left-3 top-1/2 -translate-y-1/2 text-primary/70 group-focus-within:text-primary transition-colors duration-200">
-                                    <font-awesome-icon icon="fa-solid fa-user" class="w-4 h-4" />
-                                </span>
-                                <input type="text" v-model="form.name" :class="{ 'border-red-500': errors.name }"
-                                    class="w-full pl-10 pr-4 py-3.5 bg-bgcolor/60 border border-primary/20 rounded-xl focus:ring-2 focus:ring-primary/50 focus:border-primary/50 outline-none text-white transition-all duration-200 group-hover:border-primary/40"
-                                    placeholder="Enter your full name">
-                                <p v-if="errors.name" class="text-red-400 text-xs mt-1 ml-1">{{ errors.name }}</p>
-                            </div>
-                        </div>
-
-                        <div class="space-y-2">
-                            <label class="block text-secondary text-sm font-medium">Email</label>
-                            <div class="relative group">
-                                <span
-                                    class="absolute left-3 top-1/2 -translate-y-1/2 text-primary/70 group-focus-within:text-primary transition-colors duration-200">
-                                    <font-awesome-icon icon="fa-solid fa-envelope" class="w-4 h-4" />
-                                </span>
-                                <input type="email" v-model="form.email" :class="{ 'border-red-500': errors.email }"
-                                    class="w-full pl-10 pr-4 py-3.5 bg-bgcolor/60 border border-primary/20 rounded-xl focus:ring-2 focus:ring-primary/50 focus:border-primary/50 outline-none text-white transition-all duration-200 group-hover:border-primary/40"
-                                    placeholder="example@email.com">
-                                <p v-if="errors.email" class="text-red-400 text-xs mt-1 ml-1">{{ errors.email }}</p>
-                            </div>
-                        </div>
-
-                        <div class="space-y-2">
-                            <label class="block text-secondary text-sm font-medium">Message</label>
-                            <div class="relative group">
-                                <span
-                                    class="absolute left-3 top-4 text-primary/70 group-focus-within:text-primary transition-colors duration-200">
-                                    <font-awesome-icon icon="fa-solid fa-message" class="w-4 h-4" />
-                                </span>
-                                <textarea v-model="form.message" rows="4" :class="{ 'border-red-500': errors.message }"
-                                    class="w-full pl-10 pr-4 py-3.5 bg-bgcolor/60 border border-primary/20 rounded-xl focus:ring-2 focus:ring-primary/50 focus:border-primary/50 outline-none text-white transition-all duration-200 resize-none group-hover:border-primary/40"
-                                    placeholder="Enter your message..."></textarea>
-                                <p v-if="errors.message" class="text-red-400 text-xs mt-1 ml-1">{{ errors.message }}</p>
-                            </div>
-                        </div>
-
-                        <div class="flex justify-end gap-3 mt-8">
-                            <button type="button" @click="togglePopup"
-                                class="px-5 py-3 bg-bgcolor/80 border border-primary/30 text-secondary rounded-xl hover:bg-bgcolor/60 transition-all duration-200 hover:shadow-md">
-                                Cancel
-                            </button>
-                            <button type="submit"
-                                class="px-5 py-3 bg-gradient-primary hover:bg-gradient-hover text-white rounded-xl transition-all duration-200 flex items-center gap-2 hover:shadow-lg hover:shadow-primary/20 hover:scale-105"
-                                :disabled="isSubmitting">
-                                <span v-if="isSubmitting">
-                                    <font-awesome-icon icon="fa-solid fa-spinner" class="w-4 h-4 animate-spin mr-1" />
-                                    Sending...
-                                </span>
-                                <span v-else>
-                                    <font-awesome-icon icon="fa-solid fa-paper-plane" class="w-4 h-4 mr-1" />
-                                    Send Message
-                                </span>
-                            </button>
-                        </div>
-                    </form>
-
-                    <button @click="togglePopup"
-                        class="absolute -top-4 -right-4 bg-gradient-primary text-white p-2.5 rounded-full hover:bg-gradient-hover transition-all duration-200 shadow-lg hover:scale-110 hover:rotate-90">
-                        <font-awesome-icon icon="fa-solid fa-times" class="w-4 h-4" />
-                    </button>
-                </div>
-            </div>
-        </Transition>
+      <GradientButton @click="togglePopup"
+        class="transition-transform duration-300 ease-in-out hover:border hover:border-primary hover:scale-105">
+        Contact Me
+      </GradientButton>
+  
+      <Transition name="fade">
+        <div v-if="showFormPopup"
+          class="fixed inset-0 bg-black/80 backdrop-blur-md flex justify-center items-center z-[9999] p-4 backdrop"
+          @click="closeOnOutsideClick">
+          <div class="bg-gradient-secondary border border-primary/30 p-8 rounded-2xl shadow-2xl w-full max-w-md relative z-[9999] transform transition-all duration-500 ease-out"
+            :class="{ 'scale-100 opacity-100': showFormPopup, 'scale-95 opacity-0': !showFormPopup }"
+            @click.stop>
+            
+            <h2 class="text-3xl font-bold text-white mb-8 flex items-center gap-3 relative">
+              Contact Me
+              <div class="absolute -bottom-3 left-0 w-16 h-0.5 bg-primary/50 rounded-full"></div>
+            </h2>
+  
+            <form @submit.prevent="submitForm" class="space-y-6">
+              <FormField label="Full Name" v-model="form.name" type="text" icon="user" :error="errors.name" />
+              <FormField label="Email" v-model="form.email" type="email" icon="envelope" :error="errors.email" />
+              <FormField label="Message" v-model="form.message" type="textarea" icon="message" :error="errors.message" />
+  
+              <div class="flex justify-end gap-3 mt-8">
+                <button type="button" @click="togglePopup"
+                  class="px-5 py-3 bg-gray-700 text-white rounded-xl transition-all duration-200 hover:bg-gray-600">
+                  Cancel
+                </button>
+                <button type="submit"
+                  class="px-5 py-3 bg-gradient-primary hover:bg-gradient-hover text-white rounded-xl transition-all duration-200 flex items-center gap-2 hover:shadow-lg hover:shadow-primary/20 hover:scale-105"
+                  :disabled="isSubmitting">
+                  <span v-if="isSubmitting">
+                    <font-awesome-icon icon="fa-solid fa-spinner" class="w-4 h-4 animate-spin mr-1" />
+                    Sending...
+                  </span>
+                  <span v-else>
+                    <font-awesome-icon icon="fa-solid fa-paper-plane" class="w-4 h-4 mr-1" />
+                    Send Message
+                  </span>
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </Transition>
+  
+      <Notification v-if="notification.show" :message="notification.message" :type="notification.type" />
     </div>
-</template>
-
-<script setup>
-import { ref, reactive } from 'vue';
-import GradientButton from "@/components/Button/GradientButton.vue";
-
-const showFormPopup = ref(false);
-const isSubmitting = ref(false);
-const form = reactive({
-    name: '',
-    email: '',
-    message: ''
-});
-
-const errors = reactive({
-    name: '',
-    email: '',
-    message: ''
-});
-
-const notification = reactive({
-    show: false,
-    type: 'success',
-    message: ''
-});
-
-const togglePopup = () => {
+  </template>
+  
+  <script setup>
+  import { ref, reactive } from 'vue';
+  import GradientButton from "@/components/Button/GradientButton.vue";
+  import FormField from "@/components/FormField.vue";
+  import Notification from "@/components/Notification.vue";
+  
+  // Popup control
+  const showFormPopup = ref(false);
+  const isSubmitting = ref(false);
+  
+  // Form state
+  const form = reactive({ name: '', email: '', message: '' });
+  const errors = reactive({ name: '', email: '', message: '' });
+  
+  // Notification state
+  const notification = ref({ show: false, message: "", type: "success" });
+  
+  const showNotification = (type, message) => {
+    notification.value = { show: true, message, type };
+    setTimeout(() => notification.value.show = false, 3000);
+  };
+  
+  const togglePopup = () => {
     showFormPopup.value = !showFormPopup.value;
-
-    if (!showFormPopup.value) {
-        resetForm();
-    }
-};
-
-const closeOnOutsideClick = (event) => {
-    if (event.target === event.currentTarget) {
-        togglePopup();
-    }
-};
-
-const resetForm = () => {
-    form.name = '';
-    form.email = '';
-    form.message = '';
-
-    errors.name = '';
-    errors.email = '';
-    errors.message = '';
-};
-
-const validateForm = () => {
+    if (!showFormPopup.value) resetForm();
+  };
+  
+  const closeOnOutsideClick = (event) => {
+    if (event.target.classList.contains('backdrop')) togglePopup();
+  };
+  
+  const resetForm = () => {
+    form.name = ''; form.email = ''; form.message = '';
+    errors.name = ''; errors.email = ''; errors.message = '';
+  };
+  
+  const validateForm = () => {
     let isValid = true;
-
-    errors.name = '';
-    errors.email = '';
-    errors.message = '';
-
-    if (!form.name.trim()) {
-        errors.name = 'Please enter your full name';
-        isValid = false;
-    }
-
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!form.email.trim()) {
-        errors.email = 'Please enter your email';
-        isValid = false;
-    } else if (!emailRegex.test(form.email)) {
-        errors.email = 'Invalid email';
-        isValid = false;
-    }
-
-    if (!form.message.trim()) {
-        errors.message = 'Please enter a message';
-        isValid = false;
-    }
-
+    errors.name = ''; errors.email = ''; errors.message = '';
+  
+    if (!form.name.trim()) { errors.name = 'Please enter your full name'; isValid = false; }
+    if (!form.email.trim() || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.email)) { errors.email = 'Invalid email'; isValid = false; }
+    if (!form.message.trim()) { errors.message = 'Please enter a message'; isValid = false; }
+  
     return isValid;
-};
-
-const showNotification = (type, message) => {
-    notification.type = type;
-    notification.message = message;
-    notification.show = true;
-
-    setTimeout(() => {
-        notification.show = false;
-    }, 4000);
-};
-
-const submitForm = async () => {
+  };
+  
+  const submitForm = async () => {
     if (!validateForm()) return;
-
+  
     isSubmitting.value = true;
-
     try {
-        await new Promise(resolve => setTimeout(resolve, 1500));
-
-        showNotification('success', `Successfully sent! Thank you ${form.name}, we will contact you soon.`);
-        togglePopup();
+      const response = await fetch('http://localhost:8000/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+        body: JSON.stringify(form)
+      });
+  
+      const responseText = await response.text();
+      let data;
+      try { data = JSON.parse(responseText); } catch (e) { console.error("Invalid JSON response:", e); }
+  
+      if (!response.ok) throw new Error(data?.message || `Server returned ${response.status}: ${responseText}`);
+  
+      showNotification('success', data?.message || 'Message sent successfully!');
+      togglePopup();
     } catch (error) {
-        showNotification('error', 'An error occurred. Please try again later.');
+      console.error("Error:", error);
+      showNotification('error', error.message || 'Failed to send message.');
     } finally {
-        isSubmitting.value = false;
+      isSubmitting.value = false;
     }
-};
-</script>
+  };
+  </script>
+  

@@ -30,7 +30,7 @@ export default defineConfig(({ mode }) => {
         clientPort: 5173,
         host: 'localhost'
       },
-      allowedHosts: ['popivn.onrender.com'],
+      allowedHosts: ['popivn.onrender.com','1c3e-2405-4802-d095-38c0-3d52-9361-750c-936d.ngrok-free.app'],
     }
   }
 })

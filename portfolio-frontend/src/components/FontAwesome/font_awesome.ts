@@ -12,10 +12,16 @@ import {
   faEnvelope, 
   faUser,    
   faPaperPlane,
-  faTimes,   
+  faTimes,
+  faMessage,
+  faSpinner,
 } from '@fortawesome/free-solid-svg-icons'
 
-library.add(faGithub, faLinkedin, faFacebook, faArrowRight, faPen, faPhone, faEnvelope, faUser, faPaperPlane, faTimes)
+library.add(
+  faGithub, faLinkedin, faFacebook, 
+  faArrowRight, faPen, faPhone, faEnvelope, 
+  faUser, faPaperPlane, faTimes, faMessage, faSpinner 
+)
 
 export const setupFontAwesome = (app: any) => {
   app.component('font-awesome-icon', FontAwesomeIcon)

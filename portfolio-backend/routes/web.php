@@ -3,6 +3,7 @@
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\UserDetailController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\API\ContactController;
 
 include ('api.php');
 include ('auth.php');
@@ -28,3 +29,6 @@ Route::middleware('auth')->group(function () {
     Route::post('/user-detail', [UserDetailController::class, 'store'])->name('user-detail.store');
 });
 
+Route::post('/contact', [ContactController::class, 'store'])
+    ->name('contact.store')
+    ->middleware(['App\Http\Middleware\CorsMiddleware']);

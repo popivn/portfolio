@@ -19,12 +19,15 @@ WORKDIR /var/www/html
 COPY . .
 
 COPY nginx.conf /etc/nginx/sites-available/default
+COPY start.sh /start.sh
 
-RUN composer install --optimize-autoloader --no-dev \
+RUN chmod +x /start.sh \
+    && composer install --optimize-autoloader --no-dev \
     && chmod -R 775 storage bootstrap/cache \
-    && chown -R www-data:www-data storage bootstrap/cache
+    && chown -R www-data:www-data storage bootstrap/cache \
+    && chown -R www-data:www-data /var/www/html
 
 EXPOSE 80
 
-CMD ["sh", "-c", "nginx -g 'daemon off;' && exec php-fpm"]
+CMD ["/start.sh"]
 
