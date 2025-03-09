@@ -2,6 +2,7 @@ FROM php:8.2-fpm
 
 RUN apt-get update && apt-get install -y \
     libpng-dev libjpeg-dev libfreetype6-dev libzip-dev unzip git curl nginx gnupg2 \
+    supervisor \
     && docker-php-ext-configure gd --with-freetype --with-jpeg \
     && docker-php-ext-install gd zip pdo pdo_mysql opcache
 
@@ -18,6 +19,8 @@ WORKDIR /var/www/html
 
 COPY . .
 
+COPY supervisor.conf /etc/supervisor/conf.d/laravel.conf
+
 COPY nginx.conf /etc/nginx/sites-available/default
 COPY start.sh /start.sh
 
@@ -30,4 +33,3 @@ RUN chmod +x /start.sh \
 EXPOSE 80
 
 CMD ["/start.sh"]
-

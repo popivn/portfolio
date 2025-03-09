@@ -31,7 +31,6 @@
                             notificationDropdown.appendChild(item);
                         });
 
-                        // Thêm nút "Mark all as read"
                         let markAllAsRead = document.createElement("li");
                         markAllAsRead.innerHTML =
                             `<hr class="dropdown-divider">
@@ -40,7 +39,7 @@
                     } else {
                         notificationBell.style.display = "none";
                         notificationDropdown.innerHTML =
-                            '<li><span class="dropdown-item">Không có thông báo mới</span></li>';
+                            '<li><span class="dropdown-item">No new</span></li>';
                     }
                 })
                 .catch(error => console.error("Error fetching notifications:", error));
