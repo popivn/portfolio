@@ -1,0 +1,26 @@
+when:
+  - event: push
+    branch: main
+  - event: pull_request
+
+steps:
+- name: build-and-deploy
+  image: node:18-alpine
+  when:
+    event:
+    - push
+    branch:
+    - main
+  environment:
+    RSYNC_PASSWORD:
+      from_secret: rsync_password
+  commands:
+    - apk add --no-cache rsync openssh
+    - mkdir -p ~/.ssh && chmod 700 ~/.ssh
+    - echo -e "Host 103.255.237.51\n\tStrictHostKeyChecking no\n\tUserKnownHostsFile=/dev/null" > ~/.ssh/config
+    - cd portfolio-frontend
+    - npm install
+    - npm run build --skip-type-check 
+    - rsync -avz --delete dist/ hieutt@webdevelopment.io.vn@103.255.237.51:/home/hieutt/public_html/portfolio-frontend/dist/
+    - cd ..
+    - rsync -avz --exclude="node_modules/" --exclude="vendor/" --exclude=".git" portfolio-backend/ hieutt@webdevelopment.io.vn@103.255.237.51:/home/hieutt/public_html/portfolio-backend/
