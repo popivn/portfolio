@@ -1,0 +1,36 @@
+steps:
+  - name: install-dependencies
+    image: node:18-alpine
+    commands:
+      - mkdir -p /app
+      - chown -R node:node /app
+      - npm ci
+    when:
+      event:
+        - push
+        - pull_request
+
+  - name: build-frontend
+    image: node:18-alpine
+    commands:
+      - npm run build
+    when:
+      event:
+        - push
+        - pull_request
+
+  - name: build-and-push-docker
+    image: woodpeckerci/plugin-docker-buildx
+    settings:
+      dockerfile: Dockerfile
+      target: latest
+      repo: popivn/portfolio-frontend
+      tags: latest
+      username:
+        from_secret: docker_username
+      password:
+        from_secret: docker_password
+    when:
+      event:
+        - push
+        - pull_request
