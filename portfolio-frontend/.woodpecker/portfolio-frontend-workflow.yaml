@@ -12,7 +12,7 @@ steps:
 
   - name: build-frontend
     image: node:18-alpine
-    commands:
+    commands: 
       - npm run build
     when:
       event:
