@@ -24,8 +24,8 @@
           <button v-for="tab in tabs" :key="tab" @click="handleTabClick(tab)" :class="[
             'py-3 px-4 rounded-lg font-medium transition duration-200 ease-in-out mt-2',
             activeTab === tab
-              ? 'text-primary bg-gradient-secondary shadow-lg transform scale-105 text-left'
-              : 'text-secondary hover:bg-gradient-hover hover:shadow-lg hover:transform hover:scale-105 text-right'
+              ? 'text-primary bg-gradient-secondary shadow-lg text-left'
+              : 'text-secondary hover:bg-gradient-hover hover:shadow-lg text-right'
           ]">
             {{ tab }}
           </button>

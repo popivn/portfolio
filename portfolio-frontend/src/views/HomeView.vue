@@ -44,7 +44,8 @@ const scrollToSection = (tabName) => {
   const section = sectionRefs[tabName];
   
   if (section) {
-    section.scrollIntoView({ behavior: 'smooth' });
+    // Removed smooth scrolling behavior, now it jumps directly to the section
+    section.scrollIntoView({ behavior: 'auto' });
   }
 };
 
@@ -59,9 +60,13 @@ const handleScroll = () => {
     
     const rect = section.getBoundingClientRect();
     const visibleHeight = Math.min(rect.bottom, window.innerHeight) - Math.max(rect.top, 0);
+    const visiblePercentage = visibleHeight / section.clientHeight;
     
-    if (visibleHeight > maxVisibleArea) {
-      maxVisibleArea = visibleHeight;
+    // Consider both visible area and position (give preference to sections near the top)
+    const score = visibleHeight > 0 ? visibleHeight - (rect.top * 0.1) : 0;
+    
+    if (score > maxVisibleArea) {
+      maxVisibleArea = score;
       maxVisibleSection = tabName;
     }
   });
@@ -73,12 +78,28 @@ const handleScroll = () => {
   }
 };
 
+// Throttle function to limit how often scroll events fire
+const throttle = (callback, delay) => {
+  let lastCall = 0;
+  return function(...args) {
+    const now = new Date().getTime();
+    if (now - lastCall < delay) {
+      return;
+    }
+    lastCall = now;
+    return callback(...args);
+  };
+};
+
+const throttledHandleScroll = throttle(handleScroll, 100);
+
 onMounted(() => {
-  window.addEventListener('scroll', handleScroll);
+  window.addEventListener('scroll', throttledHandleScroll);
+  // Initial check to set the active tab based on visible section
   setTimeout(handleScroll, 100);
 });
 
 onUnmounted(() => {
-  window.removeEventListener('scroll', handleScroll);
+  window.removeEventListener('scroll', throttledHandleScroll);
 });
 </script>

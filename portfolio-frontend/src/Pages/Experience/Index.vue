@@ -14,6 +14,8 @@ import mysqlImage from '@/assets/images/mysql.png'
 import phpImage from '@/assets/images/php.png'
 import tailwindImage from '@/assets/images/tailwind.png'
 import vueImage from '@/assets/images/vue.png'
+import dockerImage from '@/assets/images/docker.png'
+import woodpeckerImage from '@/assets/images/woodpecker.png'
 
 const experiences = [
     {
@@ -45,6 +47,16 @@ const experiences = [
         name: 'Vue.js',
         image: vueImage,
         level: 'I have worked with Vue.js on a few small projects, focusing on understanding the basics of component-based architecture and simple data binding.'
+    },
+    {
+        name: 'Docker',
+        image: dockerImage,
+        level: 'I have experience with Docker for containerizing applications, creating custom images, and managing multi-container environments with docker-compose.'
+    },
+    {
+        name: 'CI/CD',
+        image: woodpeckerImage,
+        level: 'I have worked with CI/CD pipelines using Woodpecker CI to automate testing, building, and deployment processes for web applications.'
     }
 ]
 

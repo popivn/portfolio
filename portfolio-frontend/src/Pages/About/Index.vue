@@ -86,7 +86,7 @@
   const skills = [
     "PHP", "Laravel", "Vue.js", "ReactJS", "ASP.NET", 
     "Front-end Development", "Back-end Development", 
-    "Web Security", "Problem Solving", "Teamwork"
+    "Web Security", "Problem Solving", "Teamwork", "Docker", "CI/CD","Git"
   ];
   
   function isValidImage(imageUrl) {
