@@ -16,7 +16,7 @@
 
     <aside :class="[
       isAsideOpen ? 'translate-x-0' : '-translate-x-full',
-      'fixed top-0 left-0 p-4 w-64 h-screen overflow-y-auto shadow-xl transform transition-transform duration-300 z-50 lg:translate-x-0 lg:sticky lg:top-0 lg:w-1/4 backdrop-blur-sm'
+      'fixed top-0 left-0 p-4 w-64 h-screen overflow-y-auto scrollbar-thin scrollbar-thumb-primary scrollbar-track-transparent shadow-xl transform transition-transform duration-300 z-50 lg:translate-x-0 lg:sticky lg:top-0 lg:w-1/4 backdrop-blur-sm'
     ]">
       <ProfileSection />
 
@@ -81,7 +81,7 @@
       </div>
     </aside>
 
-    <main class="flex-1 overflow-y-auto p-0 sm:p-6">
+    <main class="flex-1 overflow-y-auto scrollbar-thin scrollbar-thumb-primary scrollbar-track-transparent p-0 sm:p-6">
       <slot :active-tab="activeTab"></slot>
     </main>
   </div>
@@ -131,5 +131,20 @@ onUnmounted(() => {
 <style>
 .container {
   max-width: 1280px;
+}
+
+.scrollbar-thumb-primary::-webkit-scrollbar-thumb {
+  background-color: var(--color-primary, #799fc5);
+  border-radius: 9999px;
+}
+
+.scrollbar-track-transparent::-webkit-scrollbar-track {
+  background-color: transparent;
+}
+
+/* For Firefox */
+.scrollbar-thin {
+  scrollbar-width: thin;
+  scrollbar-color: var(--color-primary, #799fc5) transparent;
 }
 </style>
