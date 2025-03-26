@@ -15,12 +15,16 @@ import {
   faTimes,
   faMessage,
   faSpinner,
+  faGraduationCap,
+  faBriefcase,
+  faAward,
 } from '@fortawesome/free-solid-svg-icons'
 
 library.add(
   faGithub, faLinkedin, faFacebook, 
   faArrowRight, faPen, faPhone, faEnvelope, 
-  faUser, faPaperPlane, faTimes, faMessage, faSpinner 
+  faUser, faPaperPlane, faTimes, faMessage, faSpinner,
+  faGraduationCap, faBriefcase, faAward
 )
 
 export const setupFontAwesome = (app: any) => {
