@@ -16,7 +16,7 @@ import tailwindImage from '@/assets/images/tailwind.png'
 import vueImage from '@/assets/images/vue.png'
 import dockerImage from '@/assets/images/docker.png'
 import woodpeckerImage from '@/assets/images/woodpecker.png'
-
+import mlImage from '@/assets/images/machine-learning.png'
 const experiences = [
     {
         name: 'HTML & CSS',
@@ -57,7 +57,12 @@ const experiences = [
         name: 'CI/CD',
         image: woodpeckerImage,
         level: 'I have worked with CI/CD pipelines using Woodpecker CI to automate testing, building, and deployment processes for web applications.'
-    }
+    },
+    {
+        name: 'Machine Learning',
+        image: mlImage,
+        level: 'I have developed an AI-powered Lemon Disease Detection system using deep learning models including YOLOv8 for object detection and EfficientNet for disease classification. The system achieves 98% accuracy in identifying diseases such as Black Spot, Greening, Scab, and Thrips across nearly 2,000 training images.'
+    },
 ]
 
 </script>

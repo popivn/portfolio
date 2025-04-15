@@ -19,7 +19,7 @@
       </button>
     </div>
 
-    <div class="timeline space-y-6 relative" v-show="showTimeline">
+    <div class="timeline space-y-6 relative">
       <div class="hidden sm:block absolute left-[28%] sm:left-1/4 transform -translate-x-1/2 top-0 h-full w-[2px] bg-primary"></div>
 
       <div v-for="(post, index) in filteredPosts" :key="index" class="event relative">
@@ -40,7 +40,7 @@
             </div>
             
             <h3 class="text-xl text-primary font-bold cursor-pointer hover:text-primary/80 transition-colors" 
-                @click="selectPost(post)">
+                @click="navigateToPost(post)">
               {{ post.title }}
             </h3>
             
@@ -51,7 +51,7 @@
                 By {{ post.author }}
               </div>
               <button 
-                @click="selectPost(post)" 
+                @click="navigateToPost(post)" 
                 class="text-sm text-primary hover:text-primary/80 font-medium flex items-center gap-1"
               >
                 Read more
@@ -83,7 +83,7 @@
             </div>
             
             <h3 class="text-xl text-primary font-bold cursor-pointer hover:text-primary/80 transition-colors" 
-                @click="selectPost(post)">
+                @click="navigateToPost(post)">
               {{ post.title }}
             </h3>
             
@@ -94,7 +94,7 @@
                 By {{ post.author }}
               </div>
               <button 
-                @click="selectPost(post)" 
+                @click="navigateToPost(post)" 
                 class="text-sm text-primary hover:text-primary/80 font-medium flex items-center gap-1"
               >
                 Read more
@@ -107,33 +107,14 @@
         </div>
       </div>
     </div>
-
-    <div v-show="!showTimeline" class="post-content-view">
-      <PostContent 
-        v-if="selectedPost" 
-        :post="selectedPost" 
-        @close="showTimelineView" 
-      />
-      
-      <div class="flex justify-center mt-6">
-        <button 
-          @click="showTimelineView" 
-          class="px-4 py-2 bg-primary text-white rounded-full hover:bg-primary/90 transition-colors flex items-center gap-2"
-        >
-          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 17l-5-5m0 0l5-5m-5 5h12" />
-          </svg>
-          Back to Timeline
-        </button>
-      </div>
-    </div>
   </div>
 </template>
 
 <script setup>
 import { ref, computed } from 'vue';
-import PostContent from './PostContent.vue';
+import { useRouter } from 'vue-router';
 
+const router = useRouter();
 const props = defineProps({
   posts: {
     type: Array,
@@ -141,8 +122,6 @@ const props = defineProps({
   }
 });
 
-const selectedPost = ref(null);
-const showTimeline = ref(true);
 const activeCategory = ref('all');
 
 const uniqueCategories = computed(() => {
@@ -157,14 +136,12 @@ const filteredPosts = computed(() => {
   return props.posts.filter(post => post.category === activeCategory.value);
 });
 
-const selectPost = (post) => {
-  selectedPost.value = post;
-  showTimeline.value = false;
-};
-
-const showTimelineView = () => {
-  showTimeline.value = true;
-  selectedPost.value = null;
+const navigateToPost = (post) => {
+  router.push({
+    name: 'post-detail',
+    params: { id: post.id || post.title.toLowerCase().replace(/\s+/g, '-') },
+    state: { post }
+  });
 };
 
 const formatDate = (dateString) => {

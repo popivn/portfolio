@@ -74,7 +74,7 @@
           <ul class="mt-2 space-y-3 ml-1">
             <li v-for="(award, index) in awards" :key="index" class="flex items-start">
               <span class="inline-block h-1.5 w-1.5 rounded-full bg-primary mt-1.5 mr-2 flex-shrink-0"></span>
-              <span class="text-sm text-secondary">{{ award }}</span>
+              <a :href="award.link" target="_blank" class="text-sm text-secondary hover:text-primary hover:underline transition-colors">{{ award.title }}</a>
             </li>
           </ul>
         </div>
@@ -92,9 +92,22 @@ import { ref, onMounted, onUnmounted, defineProps, defineEmits } from "vue";
 import ProfileSection from "@/components/ProfileSection.vue";
 
 const awards = [
-  'Excellence in Software Engineering - Spring 2025',
-  'Excellence in Software Engineering - Fall 2024',
-  'Excellence in Software Engineering - Summer 2024'
+  {
+    title: 'Excellence in Software Engineering - Spring 2024',
+    link: 'https://www.facebook.com/photo/?fbid=1529456287604671&set=pcb.822443379815402'
+  },
+  {
+    title: 'Excellence in Software Engineering - Fall 2024',
+    link: 'https://www.facebook.com/photo/?fbid=2683417691844682&set=pcb.990675012992237'
+  },
+  {
+    title: 'Excellence in Software Engineering - Summer 2024',  
+    link: 'https://www.facebook.com/photo/?fbid=1600495400500759&set=pcb.885628226830250'
+  },
+  {
+    title: 'The champion of Code Arena 2025 (Team Award - KuPoKaTri)',
+    link: 'https://www.facebook.com/share/16Kz5GJNMK/'
+  },
 ];
 
 

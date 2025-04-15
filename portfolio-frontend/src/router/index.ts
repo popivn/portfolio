@@ -1,5 +1,7 @@
 import { createRouter, createWebHistory } from 'vue-router';
 import HomeView from '@/views/HomeView.vue';
+import PostDetail from '@/Pages/Posts/PostDetail.vue';
+import BlogLayout from '@/layouts/BlogLayout.vue';
 
 const routes = [
   {
@@ -7,6 +9,17 @@ const routes = [
     name: 'home',
     component: HomeView, 
   },
+  {
+    path: '/blog',
+    component: BlogLayout,
+    children: [
+      {
+        path: 'posts/:id',
+        name: 'post-detail',
+        component: PostDetail,
+      }
+    ]
+  }
 ];
 
 const router = createRouter({
