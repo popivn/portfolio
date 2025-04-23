@@ -40,7 +40,7 @@
         'src/assets/images/icon/sqlite_icon.jpg',
       ],
       github: [
-        'https://github.com/lenhatquangg/campus-expense-manager',
+        'https://github.com/popivn/campus-expense-manager',
       ],
     },
     {
@@ -53,7 +53,7 @@
         'src/assets/images/icon/mysql_icon.jpg',
       ],
       github: [
-        'https://github.com/lenhatquangg/pizza',
+        'https://github.com/popivn/pizza',
       ],
       website: [
         'https://www.piazzaorsillo.com',
@@ -69,7 +69,7 @@
         'src/assets/images/icon/sql_icon.jpg'
       ],
       github: [
-        'https://github.com/lenhatquangg/Student-Information-Management-System',
+        'https://github.com/popivn/Student-Information-Management-System',
       ],
     },
     {
@@ -82,7 +82,7 @@
         'src/assets/images/icon/mysql_icon.jpg',
       ],
       github: [
-        'https://github.com/lenhatquangg/PiStore',
+        'https://github.com/popivn/PiStore',
       ],
     },
     {
@@ -94,7 +94,7 @@
         'src/assets/images/icon/tailwind_icon.jpg',
       ],
       github: [
-        'https://github.com/lenhatquangg/portfolio',
+        'https://github.com/popivn/portfolio',
       ],
     }
   ]
