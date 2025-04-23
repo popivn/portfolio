@@ -1,7 +1,7 @@
 import { createRouter, createWebHistory } from 'vue-router';
 import HomeView from '@/views/HomeView.vue';
 import PostDetail from '@/Pages/Posts/PostDetail.vue';
-import BlogLayout from '@/layouts/BlogLayout.vue';
+import BlogLayout from '@/components/Layout/BlogLayout.vue';
 
 const routes = [
   {

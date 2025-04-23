@@ -8,7 +8,7 @@
         class="text-primary hover:text-secondary mr-4">
         <font-awesome-icon :icon="['fab', 'linkedin']" />
       </a>
-      <a href="https://github.com/lenhatquangg" target="_blank" class="text-primary hover:text-secondary">
+      <a href="https://github.com/popivn" target="_blank" class="text-primary hover:text-secondary">
         <font-awesome-icon :icon="['fab', 'github']" />
       </a>
     </div>

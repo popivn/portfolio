@@ -21,7 +21,7 @@
 <script setup>
 import BlogLayout from '@/components/Layout/BlogLayout.vue';
 import { ref } from 'vue';
-
+        
 const posts = ref([
   {
     id: 1,
